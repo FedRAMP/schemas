@@ -81,11 +81,7 @@
       "type": "object",
       "title": "Service Properties",
       "description": "Technical and operational properties of the Cloud Service Offering.",
-      "required": [
-        "serviceType",
-        "deploymentModel",
-        "digitalIdentityLevel"
-      ],
+      "required": ["serviceType", "deploymentModel", "digitalIdentityLevel"],
       "properties": {
         "serviceType": {
           "type": "array",
@@ -113,11 +109,7 @@
           "type": "string",
           "title": "Digital Identity Level",
           "description": "Highest level of digital identity that the Cloud Service Offering supports.",
-          "enum": [
-            "IAL3/FAL3/AAL3",
-            "IAL2/FAL2/AAL2",
-            "IAL1/FAL1/AAL1"
-          ]
+          "enum": ["IAL3/FAL3/AAL3", "IAL2/FAL2/AAL2", "IAL1/FAL1/AAL1"]
         },
         "businessFunctions": {
           "type": "array",
@@ -174,9 +166,31 @@
             "$ref": "#/$defs/repository"
           },
           "allOf": [
-            {"contains": {"properties": {"repositoryType": {"contains": {"const": "Secure Configuration Guidance"}}}}},
-            {"contains": {"properties": {"repositoryType": {"contains": {"const": "Trust Center"}}}}},
-            {"contains": {"properties": {"repositoryType": {"contains": {"const": "Ongoing Certification Report"}}}}}
+            {
+              "contains": {
+                "properties": {
+                  "repositoryType": {
+                    "contains": { "const": "Secure Configuration Guidance" }
+                  }
+                }
+              }
+            },
+            {
+              "contains": {
+                "properties": {
+                  "repositoryType": { "contains": { "const": "Trust Center" } }
+                }
+              }
+            },
+            {
+              "contains": {
+                "properties": {
+                  "repositoryType": {
+                    "contains": { "const": "Ongoing Certification Report" }
+                  }
+                }
+              }
+            }
           ]
         },
         "nextOngoingCertificationReportDate": {
@@ -195,9 +209,19 @@
         "$ref": "#/$defs/contactInfo"
       },
       "allOf": [
-        {"contains": {"properties": {"contactType": {"const": "Primary"}}}},
-        {"contains": {"properties": {"contactType": {"const": "Security"}}}},
-        {"contains": {"properties": {"contactType": {"const": "Sales"}}}}
+        {
+          "contains": {
+            "properties": { "contactType": { "const": "Primary" } }
+          }
+        },
+        {
+          "contains": {
+            "properties": { "contactType": { "const": "Security" } }
+          }
+        },
+        {
+          "contains": { "properties": { "contactType": { "const": "Sales" } } }
+        }
       ]
     },
     "assessor": {
@@ -373,13 +397,18 @@
     "repository": {
       "type": "object",
       "title": "Repository",
-      "required": ["repositoryType", "url", "repositoryDescription", "authenticationRequired"],
+      "required": [
+        "repositoryType",
+        "url",
+        "repositoryDescription",
+        "authenticationRequired"
+      ],
       "properties": {
         "repositoryType": {
           "type": "array",
           "title": "Repository Type",
           "description": "The type(s) or categories of this repository. A single repository may satisfy multiple type requirements.",
-          "items": {"type": "string"},
+          "items": { "type": "string" },
           "minItems": 1,
           "examples": [
             ["Secure Configuration Guidance"],
@@ -410,7 +439,7 @@
       },
       "if": {
         "properties": {
-          "authenticationRequired": {"const": true}
+          "authenticationRequired": { "const": true }
         }
       },
       "then": {
@@ -426,11 +455,7 @@
           "type": "string",
           "title": "Contact Type",
           "description": "The role or category of this contact.",
-          "examples": [
-            "Primary",
-            "Security",
-            "Sales"
-          ]
+          "examples": ["Primary", "Security", "Sales"]
         },
         "contactName": {
           "type": "string",

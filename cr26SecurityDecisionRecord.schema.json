@@ -6,10 +6,7 @@
   "type": "object",
   "title": "FedRAMP Security Decision Record (CR26-SDR)",
   "description": "JSON Schema for Cloud Service Provider (CSP) system submission for FedRAMP certification.",
-  "required": [
-    "certificationOverviewPackageUri",
-    "fedRampRequirements"
-  ],
+  "required": ["certificationOverviewPackageUri", "fedRampRequirements"],
   "properties": {
     "certificationOverviewPackageUri": {
       "type": "string",
@@ -22,7 +19,7 @@
       "title": "Contact Information",
       "description": "Key contacts for the Cloud Service Provider",
       "items": {
-      "$ref": "certificationOverviewPackage.schema.json#/$defs/contactInfo"
+        "$ref": "certificationOverviewPackage.schema.json#/$defs/contactInfo"
       }
     },
     "leveragedServices": {
@@ -69,11 +66,7 @@
             "title": "Vendor Support",
             "description": "Indicates whether the leveraged service is  supported by the vendor.",
             "type": "string",
-            "enum": [
-              "Yes",
-              "No",
-              "Community Supported"
-            ]
+            "enum": ["Yes", "No", "Community Supported"]
           },
           "dataTypes": {
             "type": "array",
@@ -194,13 +187,13 @@
       }
     },
     "fedRampRequirements": {
-          "type": "array",
-          "title": "FedRAMP Requirements",
-          "description": "Describe how any applicable FedRAMP required processes are met.",
-          "items": {
-            "$ref": "#/$defs/fedRAMPRequirement"
-          }
-        }
+      "type": "array",
+      "title": "FedRAMP Requirements",
+      "description": "Describe how any applicable FedRAMP required processes are met.",
+      "items": {
+        "$ref": "#/$defs/fedRAMPRequirement"
+      }
+    }
   },
   "$defs": {
     "nistSecurityControl": {
@@ -210,11 +203,7 @@
         "controlId": {
           "type": "string",
           "description": "NIST 800-53 Control ID",
-          "examples": [
-            "AC-1",
-            "AC-2",
-            "AC-3"
-          ],
+          "examples": ["AC-1", "AC-2", "AC-3"],
           "title": "NIST 800-53 Control ID"
         },
         "parameterValues": {
@@ -223,7 +212,7 @@
           "description": "Parameter values for the control",
           "items": {
             "type": "object",
-            "required": ["parameterId","parameterValue"],
+            "required": ["parameterId", "parameterValue"],
             "title": "Parameter Value",
             "description": "Parameter value for the control",
             "properties": {
@@ -244,11 +233,7 @@
           "type": "string",
           "title": "Control Implementation Status",
           "description": "Status of the control implementation",
-          "enum": [
-            "Implemented",
-            "Not Implemented",
-            "Partially Implemented"
-          ]
+          "enum": ["Implemented", "Not Implemented", "Partially Implemented"]
         },
         "controlImplementationDescription": {
           "type": "string",
@@ -261,10 +246,7 @@
       "type": "object",
       "title": "FedRAMP Requirement",
       "description": "FedRAMP requirement",
-      "required": [
-        "frId",
-        "securityAchievement"
-      ],
+      "required": ["frId", "securityAchievement"],
       "properties": {
         "frId": {
           "type": "string",
@@ -284,9 +266,7 @@
       "type": "object",
       "title": "Security Achievement",
       "description": "Specific security achievement such as a specific design choice, process, or other measure that supports the security objective",
-      "required": [
-        "securityAchievementDescription"
-      ],
+      "required": ["securityAchievementDescription"],
       "properties": {
         "securityAchievementDescription": {
           "type": "string",
@@ -311,11 +291,7 @@
       "type": "object",
       "title": "Security Test",
       "description": "How do you monitor the security achievement?",
-      "required": [
-        "frequency",
-        "securityTestDescription",
-        "automated"
-      ],
+      "required": ["frequency", "securityTestDescription", "automated"],
       "properties": {
         "frequency": {
           "type": "string",
@@ -386,11 +362,7 @@
               "type": "string",
               "title": "Assessment Result",
               "description": "Result of the assessment",
-              "examples": [
-                "PASSED",
-                "FAILED",
-                "NOT APPLICABLE"
-              ]
+              "examples": ["PASSED", "FAILED", "NOT APPLICABLE"]
             }
           }
         },
@@ -409,10 +381,7 @@
           {
             "title": "Link / URL",
             "type": "object",
-            "required": [
-              "evidenceType",
-              "evidenceLocation"
-            ],
+            "required": ["evidenceType", "evidenceLocation"],
             "properties": {
               "evidenceType": {
                 "type": "string",
@@ -450,10 +419,7 @@
           {
             "title": "Uploaded File (base64)",
             "type": "object",
-            "required": [
-              "evidenceType",
-              "evidenceContent"
-            ],
+            "required": ["evidenceType", "evidenceContent"],
             "properties": {
               "evidenceType": {
                 "type": "string",
@@ -491,10 +457,7 @@
           {
             "title": "Plain Text",
             "type": "object",
-            "required": [
-              "evidenceType",
-              "evidenceText"
-            ],
+            "required": ["evidenceType", "evidenceText"],
             "properties": {
               "evidenceType": {
                 "type": "string",

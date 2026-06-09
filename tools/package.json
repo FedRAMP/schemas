@@ -1,0 +1,20 @@
+{
+  "name": "tools",
+  "module": "index.ts",
+  "type": "module",
+  "scripts": {
+    "pretty": "bun run prettier --write ../*.json",
+    "typecheck": "tsc --noEmit",
+    "test": "bun test"
+  },
+  "private": true,
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "prettier": "^3.8.4"
+  }
+}
