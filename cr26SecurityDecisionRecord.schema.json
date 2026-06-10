@@ -19,7 +19,7 @@
       "title": "Contact Information",
       "description": "Key contacts for the Cloud Service Provider",
       "items": {
-        "$ref": "certificationOverviewPackage.schema.json#/$defs/contactInfo"
+        "$ref": "#/$defs/contactInfo"
       }
     },
     "leveragedServices": {
@@ -196,6 +196,34 @@
     }
   },
   "$defs": {
+    "contactInfo": {
+      "type": "object",
+      "title": "Contact",
+      "required": ["contactType"],
+      "properties": {
+        "contactType": {
+          "type": "string",
+          "title": "Contact Type",
+          "description": "The role or category of this contact.",
+          "examples": ["Primary", "Security", "Sales"]
+        },
+        "contactName": {
+          "type": "string",
+          "title": "Name"
+        },
+        "contactEmail": {
+          "type": "string",
+          "format": "email",
+          "title": "Email"
+        },
+        "contactPhone": {
+          "type": "string",
+          "title": "Phone Number",
+          "pattern": "^[0-9]{3}-[0-9]{3}-[0-9]{4}$",
+          "description": "Phone number in ###-###-#### format (e.g. 202-555-0123)."
+        }
+      }
+    },
     "nistSecurityControl": {
       "type": "object",
       "description": "NIST 800-53 Security Control",
