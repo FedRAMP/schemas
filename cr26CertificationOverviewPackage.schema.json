@@ -23,11 +23,11 @@
         "serviceAcronym",
         "serviceDescription",
         "authorizationPath",
-        "frid",
+        "fedRampPackageId",
         "website"
       ],
       "properties": {
-        "fedrampPackageId": {
+        "fedRampPackageId": {
           "type": "string",
           "title": "FedRAMP ID",
           "description": "Unique identifier assigned to the CSP by FedRAMP. If no FedRAMP ID is available, use the CSP's name and acronym."
@@ -235,9 +235,9 @@
           "title": "Assessor Name",
           "description": "Name of the independent assessor."
         },
-        "id": {
+        "assessorID": {
           "type": "string",
-          "title": "Assessor ID",
+          "title": "Assessor's FedRAMP ID",
           "description": "Unique identifier assigned to the assessor by FedRAMP.",
           "pattern": "^\\d{6}$"
         }
@@ -246,7 +246,7 @@
     "certifiedServices": {
       "type": "array",
       "title": "Certified Services",
-      "description": "Specific services included in this certification. Relevant especially for IaaS and PaaS providers with multiple products or features.",
+      "description": "List of services offered by the provider that are included in this certification.",
       "items": {
         "type": "object",
         "required": ["serviceName", "serviceDescription", "dateAvailable"],
@@ -265,7 +265,7 @@
             "type": "string",
             "format": "date",
             "title": "Date Available",
-            "description": "Date the service became available or was authorized."
+            "description": "Date the service became available or was certified."
           }
         }
       }
@@ -281,9 +281,9 @@
           "description": "FedRAMP Certified third-party information resources.",
           "items": {
             "type": "object",
-            "required": ["frid", "useCase"],
+            "required": ["fedRampCertifiedThirdPartyInformationResource", "useCase"],
             "properties": {
-              "frid": {
+              "fedRampCertifiedThirdPartyInformationResource": {
                 "type": "string",
                 "title": "FedRAMP ID",
                 "description": "Unique FedRAMP ID of the third-party information resource."
