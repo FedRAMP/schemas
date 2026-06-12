@@ -24,7 +24,8 @@
         "serviceDescription",
         "authorizationPath",
         "fedRampPackageId",
-        "website"
+        "website",
+        "logo"
       ],
       "properties": {
         "fedRampPackageId": {
@@ -35,7 +36,7 @@
         "ueiNumber": {
           "type": "string",
           "title": "UEI Number",
-          "description": "Unique Entity Identifier (UEI) assigned to the CSP by SAM.gov. If no UEI is available leave this blank."
+          "description": "Unique Entity Identifier (UEI) assigned to the CSP by SAM.gov. If no UEI is available leave this blank. (CDS-CSO-PUB)"
         },
         "providerName": {
           "type": "string",
@@ -55,7 +56,7 @@
         "serviceDescription": {
           "type": "string",
           "title": "Service Description",
-          "description": "A detailed description of the Cloud Service Offering. May use Markdown for formatting."
+          "description": "A detailed description of the Cloud Service Offering. May use Markdown for formatting (CDS-CSO-PUB)."
         },
         "authorizationPath": {
           "type": "string",
@@ -67,13 +68,14 @@
           "type": "string",
           "format": "uri",
           "title": "Website",
-          "description": "Official website for the Cloud Service Offering."
+          "description": "Official website for the Cloud Service Offering (CDS-CSO-PUB)."
         },
         "logo": {
           "type": "string",
           "format": "uri",
           "title": "Logo",
-          "description": "URL of the CSP logo."
+          "description": "URL of the CSP logo. Must point to a PNG, JPEG, GIF, SVG, WebP, ICO, BMP, or TIFF file (CDS-CSO-PUB).",
+          "pattern": "\\.(png|jpe?g|gif|svg|webp|ico|bmp|tiff?)([?#].*)?$"
         }
       }
     },
@@ -85,8 +87,8 @@
       "properties": {
         "serviceType": {
           "type": "array",
-          "title": "Service Type",
-          "description": "Cloud service model(s). Select all that apply.",
+          "title": "Service Model",
+          "description": "Cloud service model(s). Select all that apply (CDS-CSO-PUB).",
           "items": {
             "type": "string",
             "enum": ["SaaS", "PaaS", "IaaS"]
@@ -96,7 +98,7 @@
         "deploymentModel": {
           "type": "string",
           "title": "Deployment Model",
-          "description": "Deployment model of the system.",
+          "description": "Deployment model of the system (CDS-CSO-PUB).",
           "enum": [
             "Public Cloud",
             "Government-Only Cloud",
@@ -105,16 +107,10 @@
             "Government Community Cloud"
           ]
         },
-        "digitalIdentityLevel": {
-          "type": "string",
-          "title": "Digital Identity Level",
-          "description": "Highest level of digital identity that the Cloud Service Offering supports.",
-          "enum": ["IAL3/FAL3/AAL3", "IAL2/FAL2/AAL2", "IAL1/FAL1/AAL1"]
-        },
-        "businessFunctions": {
+        "businessCategory": {
           "type": "array",
-          "title": "Business Functions",
-          "description": "Business functions supported by the service.",
+          "title": "Business Category",
+          "description": "Business Category(s) supported by the service (CDS-CSO-PUB).",
           "items": {
             "type": "string",
             "enum": [
@@ -158,62 +154,40 @@
           "minItems": 1,
           "maxItems": 10
         },
-        "repositories": {
+        "trustCenter": {
+          "title": "Trust Center",
+          "description": "The URL and any access instructions needed for the Cloud Service Providers FedRAMP Trust Center (CDS-CSO-UTC). Note: Rules for FedRAMP-Compatible Trust Centers are explained in the Certification Data Sharing Rules under the FedRAMP-Compatible Trust Centers section (id: CDS-TRC).",
+          "$ref": "#/$defs/repository"
+        },
+        "secureConfigurationGuidance": {
+          "title": "Secure Configuration Guidance",
+          "description": "The URL and any access instructions needed for the Cloud Service Providers Secure Configuration Guide (SCG-CSO-RSC)",
+          "$ref": "#/$defs/repository"
+        },
+        "additionalRepositories": {
           "type": "array",
           "title": "Repositories",
-          "description": "Repository locations for system authorization documentation, policies, procedures, and assessment reports. Must include at least one Secure Configuration Guidance repository, one Trust Center repository, and one Ongoing Certification Report repository.",
+          "description": "Repository locations for system authorization documentation, policies, procedures, and assessment reports.",
           "items": {
             "$ref": "#/$defs/repository"
-          },
-          "allOf": [
-            {
-              "contains": {
-                "properties": {
-                  "repositoryType": {
-                    "contains": { "const": "Secure Configuration Guidance" }
-                  }
-                }
-              }
-            },
-            {
-              "contains": {
-                "properties": {
-                  "repositoryType": { "contains": { "const": "Trust Center" } }
-                }
-              }
-            },
-            {
-              "contains": {
-                "properties": {
-                  "repositoryType": {
-                    "contains": { "const": "Ongoing Certification Report" }
-                  }
-                }
-              }
-            }
-          ]
+          }
         },
         "nextOngoingCertificationReportDate": {
           "type": "string",
           "format": "date",
           "title": "Next Ongoing Certification Report Date",
-          "description": "The date of the next ongoing certification report for the Cloud Service Provider."
+          "description": "The date of the next ongoing certification report for the Cloud Service Provider (CDS-CSO-PUB)."
         }
       }
     },
     "contactInformation": {
       "type": "array",
       "title": "Contact Information",
-      "description": "Key contacts for the Cloud Service Provider. Must include at least one PrimaryContact, one SecurityContact, and one SalesContact.",
+      "description": "Key contacts for the Cloud Service Provider. Must include at least one SecurityContact and one SalesContact (CDS-CSO-PUB).",
       "items": {
         "$ref": "#/$defs/contactInfo"
       },
       "allOf": [
-        {
-          "contains": {
-            "properties": { "contactType": { "const": "Primary" } }
-          }
-        },
         {
           "contains": {
             "properties": { "contactType": { "const": "Security" } }
@@ -227,7 +201,7 @@
     "assessor": {
       "type": "object",
       "title": "Independent Assessor",
-      "description": "The Independent Assessment Service that performs verification and validation for the Cloud Service Offering.",
+      "description": "The Independent Assessment Service that performs verification and validation for the Cloud Service Offering (CDS-CSO-PUB).",
       "required": ["name", "id"],
       "properties": {
         "name": {
@@ -246,7 +220,7 @@
     "certifiedServices": {
       "type": "array",
       "title": "Certified Services",
-      "description": "List of services offered by the provider that are included in this certification.",
+      "description": "List of services offered by the provider that are included in this certification (CDS-CSO-SVC).",
       "items": {
         "type": "object",
         "required": ["serviceName", "serviceDescription", "dateAvailable"],
@@ -273,7 +247,7 @@
     "thirdPartyInformationResources": {
       "type": "object",
       "title": "Third-Party Information Resources",
-      "description": "Third-party information resources within the Minimum Assessment Scope for the Cloud Service Offering.",
+      "description": "Third-party information resources within the Minimum Assessment Scope for the Cloud Service Offering (MAS-CSO-TPR).",
       "properties": {
         "certified": {
           "type": "array",
@@ -324,68 +298,6 @@
                 "type": "string",
                 "title": "Use Case",
                 "description": "How this resource is used in the context of this offering."
-              }
-            }
-          }
-        }
-      }
-    },
-    "packageRequest": {
-      "type": "object",
-      "title": "Package Request",
-      "description": "How to access the certification package.",
-      "properties": {
-        "instructions": {
-          "type": "string",
-          "title": "Instructions",
-          "description": "Instructions for how to access this package. May use Markdown for formatting."
-        },
-        "links": {
-          "type": "array",
-          "title": "Links",
-          "description": "Links to the package, an access form, a web portal, or further instructions.",
-          "items": {
-            "type": "string",
-            "format": "uri"
-          }
-        }
-      }
-    },
-    "serviceAvailability": {
-      "type": "object",
-      "title": "Service Availability",
-      "description": "Information about the availability of the service.",
-      "required": ["averageUptimePercentage"],
-      "properties": {
-        "averageUptimePercentage": {
-          "type": "number",
-          "title": "Average Uptime Percentage",
-          "description": "Average uptime percentage for the service.",
-          "minimum": 0,
-          "maximum": 100
-        },
-        "recentDisruptions": {
-          "type": "array",
-          "title": "Recent Disruptions",
-          "description": "Recent service disruption events.",
-          "items": {
-            "type": "object",
-            "properties": {
-              "date": {
-                "type": "string",
-                "format": "date",
-                "title": "Date",
-                "description": "Date the disruption occurred."
-              },
-              "durationMinutes": {
-                "type": "number",
-                "title": "Duration (minutes)",
-                "description": "Total duration of the disruption in minutes."
-              },
-              "eventDescription": {
-                "type": "string",
-                "title": "Event Description",
-                "description": "Description of the disruption event."
               }
             }
           }
