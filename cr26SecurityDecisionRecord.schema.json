@@ -6,133 +6,13 @@
   "type": "object",
   "title": "FedRAMP Security Decision Record (CR26-SDR)",
   "description": "JSON Schema for Cloud Service Provider (CSP) system submission for FedRAMP certification.",
-  "required": ["certificationOverviewPackageUri", "fedRampRequirements"],
+  "required": ["certificationPackageOverviewUri", "fedRampRequirements"],
   "properties": {
-    "certificationOverviewPackageUri": {
+    "certificationPackageOverviewUri": {
       "type": "string",
       "format": "uri",
-      "title": "Certification Overview Package URI",
-      "description": "Full URI of the provider's Certification Overview Package document."
-    },
-    "contactInformation": {
-      "type": "array",
-      "title": "Contact Information",
-      "description": "Key contacts for the Cloud Service Provider",
-      "items": {
-        "$ref": "#/$defs/contactInfo"
-      }
-    },
-    "leveragedServices": {
-      "type": "array",
-      "title": "Leveraged Services",
-      "description": "List of services that the system relies on to store or process customer data.",
-      "items": {
-        "type": "object",
-        "properties": {
-          "fedrampId": {
-            "type": "string",
-            "title": "FedRAMP ID",
-            "description": "FedRAMP ID of the leveraged service if applicable."
-          },
-          "serviceType": {
-            "type": "array",
-            "title": "Type",
-            "description": "Type of the leveraged service. Corporate services are those owned by the CSP in a CSP-controlled environment. External cloud services used to support corporate are not corporate services. Update services are services that inject code or data into the CSP's infrastructure but do not process or store federal data (e.g., software repositories, build servers, virus definitions, etc.).",
-            "items": {
-              "type": "string",
-              "enum": [
-                "Non-FedRAMP Authorized Cloud Services",
-                "Corporate Shared Services",
-                "Update Services for In-Boundary Software/Services"
-              ]
-            }
-          },
-          "serviceName": {
-            "type": "string",
-            "title": "System/Service/API/CLI Name",
-            "description": "Name of the leveraged service. Provide the name and vendor name if different."
-          },
-          "connectionDetails": {
-            "type": "string",
-            "title": "Connection Details",
-            "description": "Details about how the system connects to the leveraged service. Note whether inbound, outbound, or both as well as ports, protocols, authentication, and encryption."
-          },
-          "natureOfAgreement": {
-            "type": "string",
-            "title": "Nature of Agreement",
-            "description": "Nature of the agreement with the leveraged service (e.g., EULA, SLA, App License, Contract, etc.)."
-          },
-          "vendorSupport": {
-            "title": "Vendor Support",
-            "description": "Indicates whether the leveraged service is  supported by the vendor.",
-            "type": "string",
-            "enum": ["Yes", "No", "Community Supported"]
-          },
-          "dataTypes": {
-            "type": "array",
-            "title": "Data Types",
-            "description": "Types of data handled by the leveraged service (e.g. customer data, identity data, system logs, etc.).",
-            "items": {
-              "type": "string",
-              "title": "Data Type"
-            }
-          },
-          "authorizedUsersAndAuthentication": {
-            "type": "array",
-            "title": "Authorized Users and Authentication",
-            "description": "Details about authorized users. List user roles and the authentication method. For APIs or other system to system connections provide the internal endpoint and authentication details.",
-            "items": {
-              "type": "object",
-              "title": "Authorized User Role",
-              "properties": {
-                "userRole": {
-                  "type": "string",
-                  "title": "User Role"
-                },
-                "authenticationMethod": {
-                  "type": "string",
-                  "title": "Authentication Method"
-                }
-              }
-            }
-          },
-          "otherCompliancePrograms": {
-            "type": "array",
-            "title": "Other Compliance Programs",
-            "description": "Details about other compliance programs with which the system is compliant. List certifications (e.g., PCI, SOC 2, CSA STAR) and certification dates. Note if FISMA authorized.",
-            "items": {
-              "type": "object",
-              "title": "Other Compliance Program",
-              "properties": {
-                "certification": {
-                  "type": "string",
-                  "title": "Certification"
-                },
-                "certificationDate": {
-                  "type": "string",
-                  "format": "date",
-                  "title": "Certification Date"
-                }
-              }
-            }
-          },
-          "systemDescription": {
-            "type": "string",
-            "title": "Description",
-            "description": "Description of the leveraged service"
-          },
-          "hostingEnvironment": {
-            "type": "string",
-            "title": "Hosting Environment",
-            "description": "Hosting environment of the leveraged service (e.g., corporate network, IaaS, self-hosted)."
-          },
-          "riskImpactMitigation": {
-            "type": "string",
-            "title": "Risk Impact Mitigation",
-            "description": "Describe all risk impact mitigation strategies."
-          }
-        }
-      }
+      "title": "Certification Package Overview",
+      "description": "Full URI of the provider's Certification Package Overview document."
     },
     "portsAndProtocols": {
       "type": "array",
@@ -172,16 +52,58 @@
       }
     },
     "securityControls": {
-      "type": "object",
-      "title": "NIST 800-53 Security Controls and other FedRAMP requirements",
+      "type": "array",
+      "title": "NIST 800-53 Security Controls",
       "description": "Describe the security controls for the system.",
-      "properties": {
-        "securityControls": {
-          "type": "array",
-          "title": "NIST 800-53 Security Controls",
-          "description": "NIST 800-53 Security Control implementation descriptions.",
-          "items": {
-            "$ref": "#/$defs/nistSecurityControl"
+      "items": {
+        "nistSecurityControl": {
+          "type": "object",
+          "description": "NIST 800-53 Security Control",
+          "properties": {
+            "controlId": {
+              "type": "string",
+              "description": "NIST 800-53 Control ID",
+              "examples": ["AC-1", "AC-2", "AC-3"],
+              "title": "NIST 800-53 Control ID"
+            },
+            "parameterValues": {
+              "type": "array",
+              "title": "Parameter Values",
+              "description": "Parameter values for the control",
+              "items": {
+                "type": "object",
+                "required": ["parameterId", "parameterValue"],
+                "title": "Parameter Value",
+                "description": "Parameter value for the control",
+                "properties": {
+                  "parameterId": {
+                    "type": "string",
+                    "title": "Parameter ID",
+                    "description": "The parameter ID as defined in the NIST 800-53 Control Implementation Guide."
+                  },
+                  "parameterValue": {
+                    "type": "string",
+                    "title": "Parameter Value",
+                    "description": "The parameter value selected by the Cloud Service Provider. If the parameter is a boolean, provide 'true' or 'false'. If the parameter is a list, provide a comma-separated list of values."
+                  }
+                }
+              }
+            },
+            "controlImplementationStatus": {
+              "type": "string",
+              "title": "Control Implementation Status",
+              "description": "Status of the control implementation",
+              "enum": [
+                "Implemented",
+                "Not Implemented",
+                "Partially Implemented"
+              ]
+            },
+            "controlImplementationDescription": {
+              "type": "string",
+              "title": "Control Implementation Description",
+              "description": "Description of the control implementation. May use Markdown for formatting."
+            }
           }
         }
       }
@@ -191,336 +113,166 @@
       "title": "FedRAMP Requirements",
       "description": "Describe how any applicable FedRAMP required processes are met.",
       "items": {
-        "$ref": "#/$defs/fedRAMPRequirement"
+        "fedRAMPRequirement": {
+          "type": "object",
+          "title": "FedRAMP Requirement",
+          "description": "FedRAMP requirement",
+          "required": ["frrID", "frrImplementation"],
+          "properties": {
+            "frrID": {
+              "type": "string",
+              "title": "FedRAMP Requirement ID",
+              "description": "FedRAMP requirement ID"
+            },
+            "frrImplementation": {
+              "type": "array",
+              "title": "Requirement Implementation Statements",
+              "description": "Description of the requirement implementation. May use Markdown for formatting.",
+              "items": {
+                "$ref": "#/$defs/implementationStatement"
+              }
+            },
+            "frrValidation": {
+              "type": "array",
+              "title": "Requirement Validation Statements",
+              "description": "Description of the requirement validation. May use Markdown for formatting.",
+              "items": {
+                "$ref": "#/$defs/validationStatement"
+              }
+            },
+            "frrAssesment": {
+              "type": "array",
+              "title": "Requirement Assessment Statements",
+              "description": "Description of the requirement assessment. May use Markdown for formatting.",
+              "items": {
+                "$ref": "#/$defs/assessmentStatement"
+              }
+            }
+          }
+        }
+      }
+    },
+    "keySecurityIndicators": {
+      "title": "FedRAMP Key Security Indicators",
+      "type": "array",
+      "items": {
+        "keySecurityIndicator": {
+          "type": "object",
+          "title": "FedRAMP Key Security Indicator",
+          "description": "How the Key Security Indictor objective is achieved and monitored",
+          "required": [
+            "ksiId",
+            "ksiImplementation",
+            "ksiValidation",
+            "ksiAssesment",
+            "ksiTests",
+            "ksiEvidence"
+          ],
+          "properties": {
+            "ksiId": {
+              "type": "string",
+              "title": "FedRAMP KSI ID",
+              "description": "FedRAMP KSI ID"
+            },
+            "ksiImplementation": {
+              "type": "array",
+              "title": "KSI Implementation Statements",
+              "description": "Description of the requirement implementation. May use Markdown for formatting.",
+              "items": {
+                "$ref": "#/$defs/implementationStatement"
+              }
+            },
+            "ksiValidation": {
+              "type": "array",
+              "title": "KSI Validation Statements",
+              "description": "Description of the requirement validation. May use Markdown for formatting.",
+              "items": {
+                "$ref": "#/$defs/validationStatement"
+              }
+            },
+            "ksiAssesment": {
+              "type": "array",
+              "title": "KSI Assessment Statements",
+              "description": "Description of the requirement assessment. May use Markdown for formatting.",
+              "items": {
+                "$ref": "#/$defs/assessmentStatement"
+              }
+            },
+            "ksiTests": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "ksiEvidence": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/evidence"
+              }
+            }
+          }
+        }
       }
     }
   },
   "$defs": {
-    "contactInfo": {
-      "type": "object",
-      "title": "Contact",
-      "required": ["contactType"],
-      "properties": {
-        "contactType": {
-          "type": "string",
-          "title": "Contact Type",
-          "description": "The role or category of this contact.",
-          "examples": ["Primary", "Security", "Sales"]
-        },
-        "contactName": {
-          "type": "string",
-          "title": "Name"
-        },
-        "contactEmail": {
-          "type": "string",
-          "format": "email",
-          "title": "Email"
-        },
-        "contactPhone": {
-          "type": "string",
-          "title": "Phone Number",
-          "pattern": "^[0-9]{3}-[0-9]{3}-[0-9]{4}$",
-          "description": "Phone number in ###-###-#### format (e.g. 202-555-0123)."
-        }
-      }
-    },
-    "nistSecurityControl": {
-      "type": "object",
-      "description": "NIST 800-53 Security Control",
-      "properties": {
-        "controlId": {
-          "type": "string",
-          "description": "NIST 800-53 Control ID",
-          "examples": ["AC-1", "AC-2", "AC-3"],
-          "title": "NIST 800-53 Control ID"
-        },
-        "parameterValues": {
-          "type": "array",
-          "title": "Parameter Values",
-          "description": "Parameter values for the control",
-          "items": {
-            "type": "object",
-            "required": ["parameterId", "parameterValue"],
-            "title": "Parameter Value",
-            "description": "Parameter value for the control",
-            "properties": {
-              "parameterId": {
-                "type": "string",
-                "title": "Parameter ID",
-                "description": "The parameter ID as defined in the NIST 800-53 Control Implementation Guide."
-              },
-              "parameterValue": {
-                "type": "string",
-                "title": "Parameter Value",
-                "description": "The parameter value selected by the Cloud Service Provider. If the parameter is a boolean, provide 'true' or 'false'. If the parameter is a list, provide a comma-separated list of values."
-              }
-            }
-          }
-        },
-        "controlImplementationStatus": {
-          "type": "string",
-          "title": "Control Implementation Status",
-          "description": "Status of the control implementation",
-          "enum": ["Implemented", "Not Implemented", "Partially Implemented"]
-        },
-        "controlImplementationDescription": {
-          "type": "string",
-          "title": "Control Implementation Description",
-          "description": "Description of the control implementation. May use Markdown for formatting."
-        }
-      }
-    },
-    "fedRAMPRequirement": {
-      "type": "object",
-      "title": "FedRAMP Requirement",
-      "description": "FedRAMP requirement",
-      "required": ["frId", "securityAchievement"],
-      "properties": {
-        "frId": {
-          "type": "string",
-          "title": "FedRAMP Requirement ID",
-          "description": "FedRAMP requirement ID"
-        },
-        "securityAchievement": {
-          "title": "Security Achievement",
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/securityAchievement"
-          }
-        }
-      }
-    },
-    "securityAchievement": {
-      "type": "object",
-      "title": "Security Achievement",
-      "description": "Specific security achievement such as a specific design choice, process, or other measure that supports the security objective",
-      "required": ["securityAchievementDescription"],
-      "properties": {
-        "securityAchievementDescription": {
-          "type": "string",
-          "title": "Security Achievement Description",
-          "description": "Explain how this supports the security objective. May use Markdown for formatting.",
-          "examples": [
-            "All inbound connections are restricted to port 443 using SSL/TLS.",
-            "All outbound connections are restricted to approved domains.",
-            "All IaM systems require multi-factor authentication (MFA)."
-          ]
-        },
-        "securityTests": {
-          "title": "Security Tests",
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/securityTest"
-          }
-        }
-      }
-    },
-    "securityTest": {
-      "type": "object",
-      "title": "Security Test",
-      "description": "How do you monitor the security achievement?",
-      "required": ["frequency", "securityTestDescription", "automated"],
-      "properties": {
-        "frequency": {
-          "type": "string",
-          "enum": [
-            "Continuous",
-            "Daily",
-            "Weekly",
-            "Monthly",
-            "Quarterly",
-            "Annually"
-          ],
-          "title": "Frequency",
-          "description": "Frequency of monitoring the security objective"
-        },
-        "automated": {
-          "type": "boolean",
-          "format": "checkbox",
-          "title": "Automated",
-          "description": "Is the monitoring method is automated"
-        },
-        "securityTestDescription": {
-          "type": "string",
-          "title": "Security Test Description",
-          "description": "Explain how this security test validates the security achievement. May use Markdown for formatting."
-        },
-        "command": {
-          "type": "string",
-          "title": "Command",
-          "description": "Command used to run the security test",
-          "examples": [
-            "curl -k https://example.com",
-            "netstat -nao | grep 443",
-            "grep -i 'error' /var/log/messages"
-          ]
-        },
-        "assessed": {
-          "type": "object",
-          "title": "Assessed",
-          "description": "Assessment result from your independent assessor",
-          "required": [
-            "wasAssessed",
-            "assessedBy",
-            "assessedOn",
-            "assessmentMethod",
-            "assessmentResult"
-          ],
-          "properties": {
-            "wasAssessed": {
-              "type": "boolean"
-            },
-            "assessedBy": {
-              "type": "string",
-              "title": "Assessed By",
-              "description": "Name of the independent assessor"
-            },
-            "assessedOn": {
-              "type": "string",
-              "format": "date-time",
-              "title": "Assessed On",
-              "description": "Date and time the assessment was completed"
-            },
-            "assessmentMethod": {
-              "type": "string",
-              "title": "Assessment Method",
-              "description": "Method used for the assessment"
-            },
-            "assessmentResult": {
-              "type": "string",
-              "title": "Assessment Result",
-              "description": "Result of the assessment",
-              "examples": ["PASSED", "FAILED", "NOT APPLICABLE"]
-            }
-          }
-        },
-        "evidence": {
-          "title": "Evidence",
-          "$ref": "#/$defs/evidence"
-        }
-      }
-    },
     "evidence": {
-      "type": "array",
+      "type": "object",
       "description": "Results of the security test",
       "title": "Evidence",
-      "items": {
-        "anyOf": [
-          {
-            "title": "Link / URL",
-            "type": "object",
-            "required": ["evidenceType", "evidenceLocation"],
-            "properties": {
-              "evidenceType": {
-                "type": "string",
-                "enum": [
-                  "Log",
-                  "Report",
-                  "Screenshot",
-                  "Configuration",
-                  "Policy",
-                  "Procedure",
-                  "Audit Record"
-                ],
-                "title": "Evidence Type",
-                "description": "Type of evidence provided"
-              },
-              "evidenceDescription": {
-                "type": "string",
-                "title": "Evidence Description",
-                "description": "Detailed description of the evidence."
-              },
-              "evidenceLocation": {
-                "type": "string",
-                "format": "uri",
-                "title": "Evidence Location",
-                "description": "URI or file path to the evidence document"
-              },
-              "lastUpdated": {
-                "type": "string",
-                "format": "date",
-                "title": "Last Updated",
-                "description": "Date when the evidence was last updated"
-              }
-            }
-          },
-          {
-            "title": "Uploaded File (base64)",
-            "type": "object",
-            "required": ["evidenceType", "evidenceContent"],
-            "properties": {
-              "evidenceType": {
-                "type": "string",
-                "enum": [
-                  "Log",
-                  "Report",
-                  "Screenshot",
-                  "Configuration",
-                  "Policy",
-                  "Procedure",
-                  "Audit Record"
-                ],
-                "title": "Evidence Type",
-                "description": "Type of evidence provided"
-              },
-              "evidenceDescription": {
-                "type": "string",
-                "title": "Evidence Description",
-                "description": "Detailed description of the evidence."
-              },
-              "evidenceContent": {
-                "type": "string",
-                "pattern": "^[A-Za-z0-9+/]*={0,2}$",
-                "title": "Evidence Content (base64 encoded)",
-                "description": "Base64 encoded content of the evidence document"
-              },
-              "lastUpdated": {
-                "type": "string",
-                "format": "date",
-                "title": "Last Updated",
-                "description": "Date when the evidence was last updated"
-              }
-            }
-          },
-          {
-            "title": "Plain Text",
-            "type": "object",
-            "required": ["evidenceType", "evidenceText"],
-            "properties": {
-              "evidenceType": {
-                "type": "string",
-                "enum": [
-                  "Log",
-                  "Report",
-                  "Screenshot",
-                  "Configuration",
-                  "Policy",
-                  "Procedure",
-                  "Audit Record"
-                ],
-                "title": "Evidence Type",
-                "description": "Type of evidence provided"
-              },
-              "evidenceDescription": {
-                "type": "string",
-                "title": "Evidence Description",
-                "description": "Detailed description of the evidence."
-              },
-              "evidenceText": {
-                "type": "string",
-                "title": "Evidence Content (Text)",
-                "description": "Evidence included as plain text such as the output of a command or log."
-              },
-              "lastUpdated": {
-                "type": "string",
-                "format": "date",
-                "title": "Last Updated",
-                "description": "Date when the evidence was last updated"
-              }
-            }
-          }
-        ]
+      "properties": {
+        "evidenceType": {
+          "type": "string",
+          "enum": [
+            "Log",
+            "Report",
+            "Screenshot",
+            "Configuration",
+            "Policy",
+            "Procedure",
+            "Audit Record"
+          ],
+          "title": "Evidence Type",
+          "description": "Type of evidence provided"
+        },
+        "evidenceDescription": {
+          "type": "string",
+          "title": "Evidence Description",
+          "description": "Detailed description of the evidence."
+        },
+        "evidenceLocation": {
+          "type": "string",
+          "format": "uri",
+          "title": "Evidence Location",
+          "description": "URI or file path to the evidence document"
+        },
+        "evidenceText": {
+          "type": "string",
+          "title": "Evidence Content (Text)",
+          "description": "Evidence included as plain text such as the output of a command or log."
+        },
+        "lastUpdated": {
+          "type": "string",
+          "format": "date",
+          "title": "Last Updated",
+          "description": "Date when the evidence was last updated"
+        }
       }
+    },
+    "implementationStatement": {
+      "type": "string",
+      "title": "Implementation",
+      "description": "Description of how the control/requirement/ksi is implemented. May use Markdown for formatting."
+    },
+    "validationStatement": {
+      "type": "string",
+      "title": "Validation",
+      "description": "Description of the how the control/requirement/ksi is validated by the CSP internally. May use Markdown for formatting."
+    },
+    "assessmentStatement": {
+      "type": "string",
+      "title": "Assessment",
+      "description": "Description of how the control/requirement/ksi is assessed by an independent validator. May use Markdown for formatting."
     }
   }
 }
