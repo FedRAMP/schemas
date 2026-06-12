@@ -255,7 +255,10 @@
           "description": "FedRAMP Certified third-party information resources.",
           "items": {
             "type": "object",
-            "required": ["fedRampCertifiedThirdPartyInformationResource", "useCase"],
+            "required": [
+              "fedRampCertifiedThirdPartyInformationResource",
+              "useCase"
+            ],
             "properties": {
               "fedRampCertifiedThirdPartyInformationResource": {
                 "type": "string",
