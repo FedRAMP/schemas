@@ -1,0 +1,175 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ccm-ocr-avl.schema.json",
+  "$schemaVersion": "0.0.1",
+  "$comment": "Draft schema. Not finalized — structure may change.",
+  "type": "object",
+  "title": "FedRAMP Ongoing Certification Report (CCM-OCR-AVL)",
+  "description": "Quarterly Ongoing Certification Report (OCR) per CCM-OCR-AVL, covering the entire period since the previous report.",
+  "required": [
+    "reportPeriod",
+    "certificationDataChanges",
+    "plannedCertificationDataChanges",
+    "acceptedVulnerabilities",
+    "transformativeChanges",
+    "updatedRecommendations",
+    "activeAgencies",
+    "reportableIncidents"
+  ],
+  "properties": {
+    "reportPeriod": {
+      "type": "object",
+      "title": "Report Period",
+      "description": "The 3-month period covered by this report.",
+      "required": ["from", "to"],
+      "properties": {
+        "from": {
+          "type": "string",
+          "format": "date",
+          "title": "From"
+        },
+        "to": {
+          "type": "string",
+          "format": "date",
+          "title": "To"
+        }
+      }
+    },
+    "certificationDataChanges": {
+      "type": "array",
+      "title": "Changes to FedRAMP Certification Data",
+      "description": "High-level summaries of changes to FedRAMP Certification Data since the previous report.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "plannedCertificationDataChanges": {
+      "type": "object",
+      "title": "Planned Changes to FedRAMP Certification Data",
+      "description": "High-level summaries of planned changes to FedRAMP Certification Data for at least the next 3 months.",
+      "required": ["planningHorizonThrough", "changes"],
+      "properties": {
+        "planningHorizonThrough": {
+          "type": "string",
+          "format": "date",
+          "title": "Planning Horizon Through",
+          "description": "Date through which planned changes are covered (at least 3 months from report end)."
+        },
+        "changes": {
+          "type": "array",
+          "title": "Changes",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "acceptedVulnerabilities": {
+      "type": "object",
+      "title": "Accepted Vulnerabilities",
+      "description": "Summary of accepted vulnerabilities. Full records are reported per VER-RPT-AVI.",
+      "required": ["summary"],
+      "properties": {
+        "summary": {
+          "type": "string",
+          "title": "Summary"
+        },
+        "count": {
+          "type": "integer",
+          "title": "Count",
+          "minimum": 0
+        }
+      }
+    },
+    "transformativeChanges": {
+      "type": "array",
+      "title": "Transformative Changes",
+      "description": "High-level summaries of transformative changes during this period.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "updatedRecommendations": {
+      "type": "array",
+      "title": "Updated Recommendations",
+      "description": "Updated recommendations or best practices for security, configuration, usage, or similar aspects of the cloud service offering.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "activeAgencies": {
+      "type": "array",
+      "title": "Active Agencies",
+      "description": "List of all agencies directly using the product.",
+      "items": {
+        "type": "string",
+        "title": "Agency"
+      }
+    },
+    "reportableIncidents": {
+      "type": "object",
+      "title": "FedRAMP Reportable Incidents",
+      "description": "FedRAMP Reportable Incidents during this period, or an attestation that none occurred.",
+      "required": ["noIncidentsOccurred"],
+      "properties": {
+        "noIncidentsOccurred": {
+          "type": "boolean",
+          "title": "No Incidents Occurred",
+          "description": "Set to true to attest that no FedRAMP Reportable Incidents occurred during this period."
+        },
+        "incidents": {
+          "type": "array",
+          "title": "Incidents",
+          "description": "Required when noIncidentsOccurred is false.",
+          "items": {
+            "$ref": "#/$defs/incidentSummary"
+          }
+        }
+      },
+      "if": {
+        "properties": { "noIncidentsOccurred": { "const": false } }
+      },
+      "then": {
+        "required": ["incidents"],
+        "properties": {
+          "incidents": { "minItems": 1 }
+        }
+      }
+    },
+    "incidentLessonsLearned": {
+      "type": "array",
+      "title": "Incident Lessons Learned",
+      "description": "Lessons learned and changes planned or made as a result of FedRAMP Reportable Incidents. Required when incidents occurred during this period.",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "incidentSummary": {
+      "type": "object",
+      "title": "Incident Summary",
+      "required": ["title", "summary"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "title": "Title"
+        },
+        "summary": {
+          "type": "string",
+          "title": "Summary"
+        },
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Occurred At"
+        },
+        "resolvedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Resolved At"
+        }
+      }
+    }
+  }
+}

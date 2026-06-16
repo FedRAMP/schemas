@@ -1,0 +1,246 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ver-tfr-mrh.schema.json",
+  "$schemaVersion": "0.0.1",
+  "$comment": "Draft schema. Not finalized — structure may change. Intended to align with the FedRAMP Historical VDR Activity Schema referenced in VER-TFR-MRH.",
+  "type": "object",
+  "title": "FedRAMP Historical VDR Activity (VER-TFR-MRH)",
+  "description": "Machine-readable historical vulnerability detection and response activity for automated retrieval per VER-TFR-MRH. Update frequency varies by certification class (Class A: monthly/MAY; B: monthly/SHOULD; C: 14 days/SHOULD; D: 7 days/SHOULD).",
+  "required": [
+    "generatedAt",
+    "activeVulnerabilities",
+    "acceptedVulnerabilities"
+  ],
+  "properties": {
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Generated At",
+      "description": "When this snapshot was generated."
+    },
+    "activeVulnerabilities": {
+      "type": "array",
+      "title": "Active Vulnerabilities",
+      "description": "All non-accepted vulnerabilities. Each record follows the fields required by VER-RPT-VDT.",
+      "items": {
+        "$ref": "#/$defs/vulnerabilityDetail"
+      }
+    },
+    "acceptedVulnerabilities": {
+      "type": "array",
+      "title": "Accepted Vulnerabilities",
+      "description": "All accepted vulnerabilities. Each record follows the fields required by VER-RPT-AVI.",
+      "items": {
+        "$ref": "#/$defs/acceptedVulnerabilityInfo"
+      }
+    }
+  },
+  "$defs": {
+    "nRating": {
+      "type": "integer",
+      "title": "Potential Agency Impact N-Rating",
+      "description": "See VER-EVA-EPA for definitions of N1–N5.",
+      "enum": [1, 2, 3, 4, 5]
+    },
+    "painReductionEvent": {
+      "type": "object",
+      "title": "PAIN Reduction Event",
+      "required": ["reducedAt", "rating"],
+      "properties": {
+        "reducedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Reduced At"
+        },
+        "rating": {
+          "$ref": "#/$defs/nRating",
+          "title": "Rating After Reduction"
+        }
+      }
+    },
+    "detection": {
+      "type": "object",
+      "title": "Detection",
+      "required": ["detectedAt", "detectionSource"],
+      "properties": {
+        "detectedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Detected At"
+        },
+        "detectionSource": {
+          "type": "string",
+          "title": "Detection Source",
+          "description": "Tool or activity that identified the vulnerability (e.g., scanner, penetration test, bug bounty)."
+        }
+      }
+    },
+    "vulnerabilityDetail": {
+      "type": "object",
+      "title": "Vulnerability Detail",
+      "description": "Non-accepted vulnerability record per VER-RPT-VDT.",
+      "required": [
+        "providerTrackingId",
+        "detection",
+        "evaluationCompletedAt",
+        "isInternetReachable",
+        "isLikelyExploitable",
+        "potentialAgencyImpact",
+        "overdueStatus"
+      ],
+      "properties": {
+        "providerTrackingId": {
+          "type": "string",
+          "title": "Provider Tracking ID"
+        },
+        "detection": {
+          "$ref": "#/$defs/detection"
+        },
+        "evaluationCompletedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Evaluation Completed At",
+          "description": "When evaluation per VER-EVA was completed. The 192-day clock for VER-TFR-MAV runs from this date."
+        },
+        "isInternetReachable": {
+          "type": "boolean",
+          "title": "Is Internet-Reachable",
+          "description": "IRV classification per VER-EVA-EIR."
+        },
+        "isLikelyExploitable": {
+          "type": "boolean",
+          "title": "Is Likely Exploitable",
+          "description": "LEV classification per VER-EVA-ELX and VER-EVA-AIA."
+        },
+        "potentialAgencyImpact": {
+          "type": "object",
+          "title": "Potential Agency Impact",
+          "required": ["historicalRating", "currentRating"],
+          "properties": {
+            "historicalRating": {
+              "$ref": "#/$defs/nRating",
+              "title": "Historical Rating",
+              "description": "Initial N-rating at time of evaluation."
+            },
+            "currentRating": {
+              "$ref": "#/$defs/nRating",
+              "title": "Current Rating"
+            },
+            "reductionHistory": {
+              "type": "array",
+              "title": "Reduction History",
+              "description": "Each completed N-rating reduction. Omit if none have occurred.",
+              "items": {
+                "$ref": "#/$defs/painReductionEvent"
+              }
+            },
+            "projectedNextReduction": {
+              "type": "object",
+              "title": "Projected Next Reduction",
+              "description": "Next planned mitigation step. Omit if fully mitigated or none planned.",
+              "required": ["estimatedAt", "targetRating"],
+              "properties": {
+                "estimatedAt": {
+                  "type": "string",
+                  "format": "date-time",
+                  "title": "Estimated At"
+                },
+                "targetRating": {
+                  "$ref": "#/$defs/nRating",
+                  "title": "Target Rating"
+                }
+              }
+            }
+          }
+        },
+        "overdueStatus": {
+          "type": "object",
+          "title": "Overdue Status",
+          "description": "See VER-TFR-EVU and VER-TFR-MAV for overdue definitions.",
+          "required": ["isOverdue"],
+          "properties": {
+            "isOverdue": {
+              "type": "boolean",
+              "title": "Is Overdue"
+            },
+            "explanation": {
+              "type": "string",
+              "title": "Explanation",
+              "description": "Required when isOverdue is true."
+            }
+          },
+          "if": {
+            "properties": { "isOverdue": { "const": true } }
+          },
+          "then": {
+            "required": ["explanation"]
+          }
+        },
+        "supplementaryRiskInformation": {
+          "type": "string",
+          "title": "Supplementary Risk Information",
+          "description": "Per VER-RPT-VDT field 11 and VER-RPT-NID."
+        },
+        "finalDisposition": {
+          "type": "string",
+          "title": "Final Disposition",
+          "description": "Omit if still active.",
+          "enum": ["Fully Mitigated", "Partially Mitigated", "False Positive"]
+        }
+      }
+    },
+    "acceptedVulnerabilityInfo": {
+      "type": "object",
+      "title": "Accepted Vulnerability Info",
+      "description": "Accepted vulnerability record per VER-RPT-AVI.",
+      "required": [
+        "providerTrackingId",
+        "detection",
+        "evaluationCompletedAt",
+        "isInternetReachable",
+        "isLikelyExploitable",
+        "currentRating",
+        "acceptanceRationale"
+      ],
+      "properties": {
+        "providerTrackingId": {
+          "type": "string",
+          "title": "Provider Tracking ID"
+        },
+        "detection": {
+          "$ref": "#/$defs/detection"
+        },
+        "evaluationCompletedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Evaluation Completed At",
+          "description": "When evaluation per VER-EVA was completed."
+        },
+        "isInternetReachable": {
+          "type": "boolean",
+          "title": "Is Internet-Reachable",
+          "description": "IRV classification per VER-EVA-EIR."
+        },
+        "isLikelyExploitable": {
+          "type": "boolean",
+          "title": "Is Likely Exploitable",
+          "description": "LEV classification per VER-EVA-ELX and VER-EVA-AIA."
+        },
+        "currentRating": {
+          "$ref": "#/$defs/nRating",
+          "title": "Current Rating"
+        },
+        "acceptanceRationale": {
+          "type": "string",
+          "title": "Acceptance Rationale",
+          "description": "Explanation of why this is an accepted vulnerability."
+        },
+        "supplementaryRiskInformation": {
+          "type": "string",
+          "title": "Supplementary Risk Information",
+          "description": "Per VER-RPT-AVI field 8 and VER-RPT-NID."
+        }
+      }
+    }
+  }
+}
