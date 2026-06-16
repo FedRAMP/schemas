@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "certificationOverviewPackage.schema.json",
+  "$id": "cds-cso-pub.schema.json",
   "$schemaVersion": "0.0.1",
-  "$comment": "This is a draft schema for FedRAMP submissions. It is not yet finalized and may change in the future.",
+  "$comment": "Draft schema. Not finalized — structure may change.",
   "type": "object",
   "title": "FedRAMP Certification Overview Package",
   "description": "Identification, service properties, contacts, and supporting documentation for a Cloud Service Provider FedRAMP submission.",
