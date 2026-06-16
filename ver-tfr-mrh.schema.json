@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ver-tfr-mrh.schema.json",
+  "$id": "https://fedramp.gov/schemas/ver-tfr-mrh.schema.json",
   "$schemaVersion": "0.0.1",
   "$comment": "Draft schema. Not finalized — structure may change. Intended to align with the FedRAMP Historical VDR Activity Schema referenced in VER-TFR-MRH.",
   "type": "object",
