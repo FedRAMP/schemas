@@ -73,11 +73,11 @@
       "description": "Historical and current PAIN rating. See IEC-CSO-EFI for rating definitions and IEC-CSO-DPR for the default PAIN-5 assumption when not yet estimated.",
       "properties": {
         "historicalRating": {
-          "$ref": "#/$defs/nRating",
+          "$ref": "fedramp-common.schema.json#/$defs/nRating",
           "title": "Historical Rating"
         },
         "currentRating": {
-          "$ref": "#/$defs/nRating",
+          "$ref": "fedramp-common.schema.json#/$defs/nRating",
           "title": "Current Rating"
         },
         "evaluationNotes": {
@@ -161,12 +161,6 @@
     "required": ["resolvedAt"]
   },
   "$defs": {
-    "nRating": {
-      "type": "integer",
-      "title": "Potential Agency Impact N-Rating",
-      "description": "See IEC-CSO-EFI for N1–N5 definitions.",
-      "enum": [1, 2, 3, 4, 5]
-    },
     "milestone": {
       "type": "object",
       "title": "Incident Milestone",
