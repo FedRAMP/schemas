@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "iec-cso-incident-report.schema.json",
+  "$schemaVersion": "0.0.1",
+  "$comment": "Draft schema. Not finalized — structure may change.",
+  "type": "object",
+  "title": "FedRAMP Incident Report (IEC-CSO-IIR / IEC-CSO-OIR / IEC-CSO-FIR)",
+  "description": "Unified schema for the three incident report types in the IEC-CSO lifecycle: Initial (IEC-CSO-IIR), Ongoing (IEC-CSO-OIR), and Final (IEC-CSO-FIR). Reports are linked by providerTrackingId. Notify fedramp_security@fedramp.gov, agency customers, and all necessary parties per the notification requirements in each rule.",
+  "required": ["reportType", "providerTrackingId"],
+  "properties": {
+    "reportType": {
+      "type": "string",
+      "title": "Report Type",
+      "enum": ["Initial", "Ongoing", "Final"],
+      "description": "Initial = IEC-CSO-IIR; Ongoing = IEC-CSO-OIR; Final = IEC-CSO-FIR."
+    },
+    "providerTrackingId": {
+      "type": "string",
+      "title": "Provider Tracking ID",
+      "description": "Provider's internally assigned identifier for this incident. Must be consistent across IIR, OIR, and FIR reports for the same incident."
+    },
+    "federalIncidentCoordinator": {
+      "type": "object",
+      "title": "Federal Incident Response Coordinator",
+      "description": "Contact information for the provider's federal incident response coordinator.",
+      "properties": {
+        "name": { "type": "string", "title": "Name" },
+        "email": { "type": "string", "format": "email", "title": "Email" },
+        "phone": { "type": "string", "title": "Phone" }
+      }
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "description": "Description of the incident."
+    },
+    "timeline": {
+      "type": "object",
+      "title": "Timeline",
+      "description": "Timeline of the incident per IEC-CSO-IIR field 4.",
+      "properties": {
+        "startedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Started At"
+        },
+        "detectedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Detected At"
+        },
+        "detectionSource": {
+          "type": "string",
+          "title": "Detection Source"
+        },
+        "evaluationCompletedAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "FedRAMP Reportable Incident Evaluation Completed At"
+        },
+        "milestones": {
+          "type": "array",
+          "title": "Milestones",
+          "items": {
+            "$ref": "#/$defs/milestone"
+          }
+        }
+      }
+    },
+    "potentialAgencyImpact": {
+      "type": "object",
+      "title": "Potential Agency Impact",
+      "description": "Historical and current PAIN rating. See IEC-CSO-EFI for rating definitions and IEC-CSO-DPR for the default PAIN-5 assumption when not yet estimated.",
+      "properties": {
+        "historicalRating": {
+          "$ref": "#/$defs/nRating",
+          "title": "Historical Rating"
+        },
+        "currentRating": {
+          "$ref": "#/$defs/nRating",
+          "title": "Current Rating"
+        },
+        "evaluationNotes": {
+          "type": "string",
+          "title": "Evaluation Notes",
+          "description": "Explanation of the PAIN evaluation per IEC-CSO-EFI. Required if applicable."
+        }
+      }
+    },
+    "functionalImpact": {
+      "type": "object",
+      "title": "Functional Impact",
+      "description": "Impact to federal agency customers.",
+      "properties": {
+        "confidentialityImpact": {
+          "type": "string",
+          "title": "Confidentiality Impact"
+        },
+        "integrityImpact": {
+          "type": "string",
+          "title": "Integrity Impact"
+        },
+        "affectedDataTypes": {
+          "type": "array",
+          "title": "Affected Federal Customer Data Types",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "recoveryPlan": {
+      "type": "string",
+      "title": "Recovery Plan",
+      "description": "Estimated recovery plan, milestones, and timelines."
+    },
+    "affectedAgencies": {
+      "type": "array",
+      "title": "Likely Affected Customer Agencies",
+      "items": { "type": "string" }
+    },
+    "observedActivity": {
+      "type": "string",
+      "title": "Observed Incident Activity",
+      "description": "Per IEC-CSO-OIR. Include in Ongoing and Final reports."
+    },
+    "indicatorsOfCompromise": {
+      "type": "array",
+      "title": "Indicators of Compromise",
+      "description": "Per IEC-CSO-OIR.",
+      "items": { "type": "string" }
+    },
+    "relatedCveIds": {
+      "type": "array",
+      "title": "Related CVE Identifiers",
+      "description": "Per IEC-CSO-OIR. Include if applicable.",
+      "items": {
+        "type": "string",
+        "pattern": "^CVE-[0-9]{4}-[0-9]+$"
+      }
+    },
+    "rootCause": {
+      "type": "string",
+      "title": "Root Cause",
+      "description": "Per IEC-CSO-OIR."
+    },
+    "responseAndRecoveryActivities": {
+      "type": "string",
+      "title": "Response and Recovery Activities",
+      "description": "Per IEC-CSO-OIR."
+    },
+    "resolvedAt": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Resolved At",
+      "description": "When the incident was resolved and recovery completed. Required for Final reports (IEC-CSO-FIR)."
+    }
+  },
+  "if": {
+    "properties": { "reportType": { "const": "Final" } }
+  },
+  "then": {
+    "required": ["resolvedAt"]
+  },
+  "$defs": {
+    "nRating": {
+      "type": "integer",
+      "title": "Potential Agency Impact N-Rating",
+      "description": "See IEC-CSO-EFI for N1–N5 definitions.",
+      "enum": [1, 2, 3, 4, 5]
+    },
+    "milestone": {
+      "type": "object",
+      "title": "Incident Milestone",
+      "required": ["occurredAt", "description"],
+      "properties": {
+        "occurredAt": {
+          "type": "string",
+          "format": "date-time",
+          "title": "Occurred At"
+        },
+        "description": {
+          "type": "string",
+          "title": "Description"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "scn-cso-inf.schema.json",
+  "$schemaVersion": "0.0.1",
+  "$comment": "Draft schema. Not finalized — structure may change.",
+  "type": "object",
+  "title": "FedRAMP Significant Change Notification (SCN-CSO-INF)",
+  "description": "Required information for a Significant Change Notification per SCN-CSO-INF. Note per the rule: structure of the information may vary depending on how the provider tracks this internally.",
+  "required": [
+    "fedrampId",
+    "changeType",
+    "description",
+    "reason",
+    "customerImpact",
+    "planAndTimeline",
+    "impactAnalysis",
+    "approver"
+  ],
+  "properties": {
+    "fedrampId": {
+      "type": "string",
+      "title": "Service Offering FedRAMP ID"
+    },
+    "assessorName": {
+      "type": "string",
+      "title": "Assessor Name",
+      "description": "Name of the assessor involved in this change, if applicable."
+    },
+    "relatedVulnerability": {
+      "type": "string",
+      "title": "Related Vulnerability",
+      "description": "Identifier or description of any related vulnerability driving this change, if applicable."
+    },
+    "changeType": {
+      "type": "object",
+      "title": "Significant Change Type",
+      "description": "Type of significant change and explanation of categorization per SCN-CSO-EVA.",
+      "required": ["type", "categorizationExplanation"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "title": "Type",
+          "enum": ["Adaptive", "Transformative"],
+          "description": "Significant change type per SCN-CSO-EVA. Routine recurring changes (SCN-RTR) do not require a Significant Change Notification."
+        },
+        "categorizationExplanation": {
+          "type": "string",
+          "title": "Categorization Explanation",
+          "description": "Explanation of why this change was categorized as the selected type."
+        }
+      }
+    },
+    "description": {
+      "type": "string",
+      "title": "Description",
+      "description": "Short description of the change."
+    },
+    "reason": {
+      "type": "string",
+      "title": "Reason for Change"
+    },
+    "customerImpact": {
+      "type": "string",
+      "title": "Customer Impact",
+      "description": "Summary of customer impact, including changes to services and customer configuration responsibilities."
+    },
+    "planAndTimeline": {
+      "type": "object",
+      "title": "Plan and Timeline",
+      "description": "Plan and timeline for the change, including verification, assessment, and/or validation of impacted Key Security Indicators (KSIs) or Rev5 Controls.",
+      "required": ["summary"],
+      "properties": {
+        "summary": {
+          "type": "string",
+          "title": "Summary"
+        },
+        "plannedStart": {
+          "type": "string",
+          "format": "date",
+          "title": "Planned Start"
+        },
+        "plannedCompletion": {
+          "type": "string",
+          "format": "date",
+          "title": "Planned Completion"
+        },
+        "milestones": {
+          "type": "array",
+          "title": "Milestones",
+          "items": {
+            "type": "object",
+            "required": ["description"],
+            "properties": {
+              "description": { "type": "string", "title": "Description" },
+              "targetDate": {
+                "type": "string",
+                "format": "date",
+                "title": "Target Date"
+              }
+            }
+          }
+        },
+        "impactedControls": {
+          "type": "array",
+          "title": "Impacted KSIs or Rev5 Controls",
+          "description": "KSI or control identifiers that will be verified, assessed, or validated as part of this change.",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "impactAnalysis": {
+      "type": "string",
+      "title": "Business or Security Impact Analysis",
+      "description": "Copy or summary of the business or security impact analysis. May be the full text or a URI referencing the document."
+    },
+    "approver": {
+      "type": "object",
+      "title": "Approver",
+      "required": ["name", "title"],
+      "properties": {
+        "name": { "type": "string", "title": "Name" },
+        "title": { "type": "string", "title": "Title" }
+      }
+    }
+  }
+}
