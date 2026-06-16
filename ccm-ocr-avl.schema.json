@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "ccm-ocr-avl.schema.json",
+  "$id": "https://fedramp.gov/schemas/ccm-ocr-avl.schema.json",
   "$schemaVersion": "0.0.1",
   "$comment": "Draft schema. Not finalized — structure may change.",
   "type": "object",
