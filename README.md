@@ -8,8 +8,15 @@ This repository contains draft JSON Schemas for FedRAMP Consolidated Rules 26 (C
 
 ## Schemas
 
-- **`sdr-cso-frr.schema.json`** — Security Decision Record
+- **`fedramp-common.schema.json`** — Shared type definitions referenced by other FedRAMP schemas
 - **`cds-cso-pub.schema.json`** — Certification Overview Package
+- **`sdr-cso-frr.schema.json`** — Security Decision Record
+- **`ccm-ocr-avl.schema.json`** — Ongoing Certification Report (CCM-OCR-AVL)
+- **`iec-cso-incident-report.schema.json`** — Incident Report (IEC-CSO-IIR / IEC-CSO-OIR / IEC-CSO-FIR)
+- **`scn-cso-inf.schema.json`** — Significant Change Notification (SCN-CSO-INF)
+- **`ver-rpt-vdt.schema.json`** — Vulnerability Detail Report (VER-RPT-VDT)
+- **`ver-rpt-avi.schema.json`** — Accepted Vulnerability Info (VER-RPT-AVI)
+- **`ver-tfr-mrh.schema.json`** — Historical VDR Activity (VER-TFR-MRH)
 
 ## Tools
 
