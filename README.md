@@ -8,7 +8,7 @@ This repository contains draft JSON Schemas for FedRAMP Consolidated Rules 26 (C
 
 ## Schemas
 
-- **`cr26SecurityDecisionRecord.schema.json`** — Security Decision Record
+- **`sdr-cso-frr.schema.json`** — Security Decision Record
 - **`cds-cso-pub.schema.json`** — Certification Overview Package
 
 ## Tools

@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "cr26SecurityDecisionRecord.schema.json",
+  "$id": "sdr-cso-frr.schema.json",
   "$schemaVersion": "0.0.1",
-  "$comment": "This is a draft schema for FedRAMP submissions. It is not yet finalized and may change in the future.",
+  "$comment": "Draft schema. Not finalized — structure may change.",
   "type": "object",
   "title": "FedRAMP Security Decision Record (CR26-SDR)",
   "description": "JSON Schema for Cloud Service Provider (CSP) system submission for FedRAMP certification.",
