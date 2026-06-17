@@ -22,7 +22,7 @@
         "serviceName",
         "serviceAcronym",
         "serviceDescription",
-        "certificationPath",
+        "certificationType",
         "fedRampPackageId",
         "website",
         "logo"
@@ -58,10 +58,10 @@
           "title": "Service Description",
           "description": "A detailed description of the Cloud Service Offering. May use Markdown for formatting (CDS-CSO-PUB)."
         },
-        "certificationPath": {
+        "certificationType": {
           "type": "string",
-          "title": "Certification Path",
-          "description": "The FedRAMP certification path for the Cloud Service Offering.",
+          "title": "Certification Type",
+          "description": "The FedRAMP certification type for the Cloud Service Offering.",
           "enum": ["20x", "Rev5"]
         },
         "website": {
