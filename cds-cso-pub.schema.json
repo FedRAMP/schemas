@@ -116,6 +116,7 @@
             "enum": [
               "Accounting",
               "Analytics",
+              "Artificial Intelligence (AI)",
               "Collaboration",
               "Communication",
               "Construction",
@@ -130,7 +131,7 @@
               "Education & Training",
               "Finance",
               "Fleet Management",
-              "Governance, Risk & Compliance",
+              "Governance, Risk, and Compliance (GRC)",
               "Grant Management",
               "Health & Wellness",
               "Human Resources",
