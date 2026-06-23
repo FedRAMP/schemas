@@ -2,17 +2,13 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fedramp.gov/schemas/sdr-cso-frr.schema.json",
   "$schemaVersion": "0.0.1",
-  "$comment": "Draft schema. Not finalized — structure may change.",
   "type": "object",
-  "title": "FedRAMP Security Decision Record (CR26-SDR)",
+  "title": "FedRAMP Security Decision Record",
   "description": "JSON Schema for Cloud Service Provider (CSP) system submission for FedRAMP certification.",
   "required": ["certificationPackageOverviewUri", "fedRampRequirements"],
   "properties": {
     "certificationPackageOverviewUri": {
-      "type": "string",
-      "format": "uri",
-      "title": "Certification Package Overview",
-      "description": "Full URI of the provider's Certification Package Overview document."
+      "$ref": "common-definitions.schema.json#/$defs/certificationPackageOverviewUri"
     },
     "portsAndProtocols": {
       "type": "array",

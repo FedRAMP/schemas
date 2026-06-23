@@ -2,10 +2,9 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fedramp.gov/schemas/cds-cso-pub.schema.json",
   "$schemaVersion": "0.0.1",
-  "$comment": "Draft schema. Not finalized — structure may change.",
   "type": "object",
-  "title": "FedRAMP Certification Overview Package",
-  "description": "Identification, service properties, contacts, and supporting documentation for a Cloud Service Provider FedRAMP submission.",
+  "title": "FedRAMP Certification Overview Package (FRC-CSO-PKG)",
+  "description": "Identification, service properties, contacts, and supporting documentation for a Cloud Service Offering per FRC-CSO-PKG.",
   "required": [
     "serviceIdentification",
     "serviceProperties",
@@ -184,7 +183,7 @@
     "contactInformation": {
       "type": "array",
       "title": "Contact Information",
-      "description": "Key contacts for the Cloud Service Provider. Must include at least one SecurityContact and one SalesContact (CDS-CSO-PUB).",
+      "description": "Key contacts for the Cloud Service Provider. Must include at least one Security Contact and one Sales Contact (CDS-CSO-PUB).",
       "items": {
         "$ref": "#/$defs/contactInfo"
       },

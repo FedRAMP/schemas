@@ -2,11 +2,11 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fedramp.gov/schemas/ccm-ocr-avl.schema.json",
   "$schemaVersion": "0.0.1",
-  "$comment": "Draft schema. Not finalized — structure may change.",
   "type": "object",
   "title": "FedRAMP Ongoing Certification Report (CCM-OCR-AVL)",
   "description": "Quarterly Ongoing Certification Report (OCR) per CCM-OCR-AVL, covering the entire period since the previous report.",
   "required": [
+    "certificationPackageOverviewUri",
     "reportPeriod",
     "certificationDataChanges",
     "plannedCertificationDataChanges",
@@ -17,8 +17,11 @@
     "reportableIncidents"
   ],
   "properties": {
+    "certificationPackageOverviewUri": {
+      "$ref": "common-definitions.schema.json#/$defs/certificationPackageOverviewUri"
+    },
     "reportPeriod": {
-      "$ref": "fedramp-common.schema.json#/$defs/reportPeriodDate",
+      "$ref": "common-definitions.schema.json#/$defs/reportPeriodDate",
       "title": "Report Period",
       "description": "The 3-month period covered by this report."
     },
@@ -52,21 +55,9 @@
       }
     },
     "acceptedVulnerabilities": {
-      "type": "object",
+      "type": "string",
       "title": "Accepted Vulnerabilities",
-      "description": "Summary of accepted vulnerabilities. Full records are reported per VER-RPT-AVI.",
-      "required": ["summary"],
-      "properties": {
-        "summary": {
-          "type": "string",
-          "title": "Summary"
-        },
-        "count": {
-          "type": "integer",
-          "title": "Count",
-          "minimum": 0
-        }
-      }
+      "description": "Summary of accepted vulnerabilities. Full records are reported per VER-RPT-AVI."
     },
     "transformativeChanges": {
       "type": "array",
@@ -97,38 +88,15 @@
       "type": "object",
       "title": "FedRAMP Reportable Incidents",
       "description": "FedRAMP Reportable Incidents during this period, or an attestation that none occurred.",
-      "required": ["noIncidentsOccurred"],
       "properties": {
-        "noIncidentsOccurred": {
-          "type": "boolean",
-          "title": "No Incidents Occurred",
-          "description": "Set to true to attest that no FedRAMP Reportable Incidents occurred during this period."
-        },
         "incidents": {
           "type": "array",
           "title": "Incidents",
-          "description": "Required when noIncidentsOccurred is false.",
+          "description": "Summary of each incident.",
           "items": {
             "$ref": "#/$defs/incidentSummary"
           }
         }
-      },
-      "if": {
-        "properties": { "noIncidentsOccurred": { "const": false } }
-      },
-      "then": {
-        "required": ["incidents"],
-        "properties": {
-          "incidents": { "minItems": 1 }
-        }
-      }
-    },
-    "incidentLessonsLearned": {
-      "type": "array",
-      "title": "Incident Lessons Learned",
-      "description": "Lessons learned and changes planned or made as a result of FedRAMP Reportable Incidents. Required when incidents occurred during this period.",
-      "items": {
-        "type": "string"
       }
     }
   },
@@ -136,12 +104,7 @@
     "incidentSummary": {
       "type": "object",
       "title": "Incident Summary",
-      "required": ["title", "summary"],
       "properties": {
-        "title": {
-          "type": "string",
-          "title": "Title"
-        },
         "summary": {
           "type": "string",
           "title": "Summary"
@@ -155,6 +118,14 @@
           "type": "string",
           "format": "date-time",
           "title": "Resolved At"
+        },
+        "incidentLessonsLearned": {
+          "type": "array",
+          "title": "Incident Lessons Learned",
+          "description": "Lessons learned and changes planned or made as a result of FedRAMP Reportable Incidents.",
+          "items": {
+            "type": "string"
+          }
         }
       }
     }

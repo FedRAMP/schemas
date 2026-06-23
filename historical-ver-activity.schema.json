@@ -2,16 +2,19 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fedramp.gov/schemas/ver-tfr-mrh.schema.json",
   "$schemaVersion": "0.0.1",
-  "$comment": "Draft schema. Not finalized — structure may change. Intended to align with the FedRAMP Historical VDR Activity Schema referenced in VER-TFR-MRH.",
   "type": "object",
-  "title": "FedRAMP Historical VDR Activity (VER-TFR-MRH)",
-  "description": "Machine-readable historical vulnerability detection and response activity for automated retrieval per VER-TFR-MRH. Update frequency varies by certification class (Class A: monthly/MAY; B: monthly/SHOULD; C: 14 days/SHOULD; D: 7 days/SHOULD).",
+  "title": "FedRAMP Historical Vulnerability Evaluation and Reporting Activity (VER-TFR-MRH)",
+  "description": "Machine-readable historical Vulnerability Evaluation and Reporting activity for automated retrieval per VER-TFR-MRH.",
   "required": [
+    "certificationPackageOverviewUri",
     "generatedAt",
     "activeVulnerabilities",
     "acceptedVulnerabilities"
   ],
   "properties": {
+    "certificationPackageOverviewUri": {
+      "$ref": "common-definitions.schema.json#/$defs/certificationPackageOverviewUri"
+    },
     "generatedAt": {
       "type": "string",
       "format": "date-time",
@@ -23,7 +26,7 @@
       "title": "Active Vulnerabilities",
       "description": "All non-accepted vulnerabilities. Each record follows the fields required by VER-RPT-VDT.",
       "items": {
-        "$ref": "fedramp-common.schema.json#/$defs/vulnerabilityDetail"
+        "$ref": "common-definitions.schema.json#/$defs/vulnerabilityDetail"
       }
     },
     "acceptedVulnerabilities": {
@@ -31,7 +34,7 @@
       "title": "Accepted Vulnerabilities",
       "description": "All accepted vulnerabilities. Each record follows the fields required by VER-RPT-AVI.",
       "items": {
-        "$ref": "fedramp-common.schema.json#/$defs/acceptedVulnerabilityInfo"
+        "$ref": "common-definitions.schema.json#/$defs/acceptedVulnerabilityInfo"
       }
     }
   }

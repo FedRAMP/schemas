@@ -2,12 +2,14 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fedramp.gov/schemas/iec-cso-incident-report.schema.json",
   "$schemaVersion": "0.0.1",
-  "$comment": "Draft schema. Not finalized — structure may change.",
   "type": "object",
   "title": "FedRAMP Incident Report (IEC-CSO-IIR / IEC-CSO-OIR / IEC-CSO-FIR)",
-  "description": "Unified schema for the three incident report types in the IEC-CSO lifecycle: Initial (IEC-CSO-IIR), Ongoing (IEC-CSO-OIR), and Final (IEC-CSO-FIR). Reports are linked by providerTrackingId. Notify fedramp_security@fedramp.gov, agency customers, and all necessary parties per the notification requirements in each rule.",
-  "required": ["reportType", "providerTrackingId"],
+  "description": "Unified schema for the three incident report types in the IEC-CSO lifecycle: Initial (IEC-CSO-IIR), Ongoing (IEC-CSO-OIR), and Final (IEC-CSO-FIR).",
+  "required": ["certificationPackageOverviewUri","reportType", "providerTrackingId"],
   "properties": {
+    "certificationPackageOverviewUri": {
+      "$ref": "common-definitions.schema.json#/$defs/certificationPackageOverviewUri"
+    },
     "reportType": {
       "type": "string",
       "title": "Report Type",
@@ -20,18 +22,13 @@
       "description": "Provider's internally assigned identifier for this incident. Must be consistent across IIR, OIR, and FIR reports for the same incident."
     },
     "federalIncidentCoordinator": {
-      "type": "object",
-      "title": "Federal Incident Response Coordinator",
-      "description": "Contact information for the provider's federal incident response coordinator.",
-      "properties": {
-        "name": { "type": "string", "title": "Name" },
-        "email": { "type": "string", "format": "email", "title": "Email" },
-        "phone": { "type": "string", "title": "Phone" }
-      }
-    },
-    "description": {
       "type": "string",
-      "title": "Description",
+      "title": "Federal Incident Response Coordinator",
+      "description": "Contact information for the provider's federal incident response coordinator."
+    },
+    "incidentDescription": {
+      "type": "string",
+      "title": "Incident Description",
       "description": "Description of the incident."
     },
     "timeline": {
@@ -67,17 +64,20 @@
         }
       }
     },
-    "potentialAgencyImpact": {
-      "type": "object",
-      "title": "Potential Agency Impact",
-      "description": "Historical and current PAIN rating. See IEC-CSO-EFI for rating definitions and IEC-CSO-DPR for the default PAIN-5 assumption when not yet estimated.",
+    "potentialImpact": {
+      "type": "string",
+      "title": "Potential Impact",
+      "description": "Describe the current and historical potential impact to your system.",
       "properties": {
         "historicalRating": {
-          "$ref": "fedramp-common.schema.json#/$defs/nRating",
-          "title": "Historical Rating"
+          "type": "array",
+          "title": "Historical Rating",
+          "items": {
+            "$ref": "common-definitions.schema.json#/$defs/nRating"
+          }
         },
         "currentRating": {
-          "$ref": "fedramp-common.schema.json#/$defs/nRating",
+          "$ref": "common-definitions.schema.json#/$defs/nRating",
           "title": "Current Rating"
         },
         "evaluationNotes": {
@@ -88,24 +88,9 @@
       }
     },
     "functionalImpact": {
-      "type": "object",
+      "type": "string",
       "title": "Functional Impact",
-      "description": "Impact to federal agency customers.",
-      "properties": {
-        "confidentialityImpact": {
-          "type": "string",
-          "title": "Confidentiality Impact"
-        },
-        "integrityImpact": {
-          "type": "string",
-          "title": "Integrity Impact"
-        },
-        "affectedDataTypes": {
-          "type": "array",
-          "title": "Affected Federal Customer Data Types",
-          "items": { "type": "string" }
-        }
-      }
+      "description": "Describe the actual or potential impact to federal agency customers."
     },
     "recoveryPlan": {
       "type": "string",
@@ -120,7 +105,7 @@
     "observedActivity": {
       "type": "string",
       "title": "Observed Incident Activity",
-      "description": "Per IEC-CSO-OIR. Include in Ongoing and Final reports."
+      "description": "Per IEC-CSO-OIR."
     },
     "indicatorsOfCompromise": {
       "type": "array",
@@ -153,12 +138,6 @@
       "title": "Resolved At",
       "description": "When the incident was resolved and recovery completed. Required for Final reports (IEC-CSO-FIR)."
     }
-  },
-  "if": {
-    "properties": { "reportType": { "const": "Final" } }
-  },
-  "then": {
-    "required": ["resolvedAt"]
   },
   "$defs": {
     "milestone": {
