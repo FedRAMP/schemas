@@ -2,7 +2,6 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json",
   "$schemaVersion": "0.0.1",
-  "$comment": "Draft schema. Not finalized — structure may change.",
   "title": "FedRAMP Common Definitions",
   "description": "Shared type definitions referenced by other FedRAMP schemas.",
   "$defs": {
