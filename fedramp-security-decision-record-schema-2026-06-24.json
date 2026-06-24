@@ -1,14 +1,17 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://fedramp.gov/schemas/sdr-cso-frr.schema.json",
+  "$id": "https://fedramp.gov/schemas/fedramp-security-decision-record-schema-2026-06-24.json",
   "$schemaVersion": "0.0.1",
   "type": "object",
   "title": "FedRAMP Security Decision Record",
   "description": "JSON Schema for Cloud Service Provider (CSP) system submission for FedRAMP certification.",
-  "required": ["certificationPackageOverviewUri", "fedRampRequirements"],
+  "required": [
+    "certificationPackageOverviewUri",
+    "fedRampRequirements"
+  ],
   "properties": {
     "certificationPackageOverviewUri": {
-      "$ref": "common-definitions.schema.json#/$defs/certificationPackageOverviewUri"
+      "$ref": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json/$defs/certificationPackageOverviewUri"
     },
     "portsAndProtocols": {
       "type": "array",
@@ -59,7 +62,11 @@
             "controlId": {
               "type": "string",
               "description": "NIST 800-53 Control ID",
-              "examples": ["AC-1", "AC-2", "AC-3"],
+              "examples": [
+                "AC-1",
+                "AC-2",
+                "AC-3"
+              ],
               "title": "NIST 800-53 Control ID"
             },
             "parameterValues": {
@@ -68,7 +75,10 @@
               "description": "Parameter values for the control",
               "items": {
                 "type": "object",
-                "required": ["parameterId", "parameterValue"],
+                "required": [
+                  "parameterId",
+                  "parameterValue"
+                ],
                 "title": "Parameter Value",
                 "description": "Parameter value for the control",
                 "properties": {
@@ -113,7 +123,10 @@
           "type": "object",
           "title": "FedRAMP Requirement",
           "description": "FedRAMP requirement",
-          "required": ["frrID", "frrImplementation"],
+          "required": [
+            "frrID",
+            "frrImplementation"
+          ],
           "properties": {
             "frrID": {
               "type": "string",

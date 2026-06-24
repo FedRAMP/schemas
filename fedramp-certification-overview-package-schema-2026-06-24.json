@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://fedramp.gov/schemas/cds-cso-pub.schema.json",
+  "$id": "https://fedramp.gov/schemas/fedramp-certification-overview-package-schema-2026-06-24.json",
   "$schemaVersion": "0.0.1",
   "type": "object",
   "title": "FedRAMP Certification Overview Package (FRC-CSO-PKG)",
@@ -61,7 +61,10 @@
           "type": "string",
           "title": "Certification Type",
           "description": "The FedRAMP certification type for the Cloud Service Offering.",
-          "enum": ["20x", "Rev5"]
+          "enum": [
+            "20x",
+            "Rev5"
+          ]
         },
         "website": {
           "type": "string",
@@ -82,7 +85,11 @@
       "type": "object",
       "title": "Service Properties",
       "description": "Technical and operational properties of the Cloud Service Offering.",
-      "required": ["serviceType", "deploymentModel", "digitalIdentityLevel"],
+      "required": [
+        "serviceType",
+        "deploymentModel",
+        "digitalIdentityLevel"
+      ],
       "properties": {
         "serviceType": {
           "type": "array",
@@ -90,7 +97,11 @@
           "description": "Cloud service model(s). Select all that apply (CDS-CSO-PUB).",
           "items": {
             "type": "string",
-            "enum": ["SaaS", "PaaS", "IaaS"]
+            "enum": [
+              "SaaS",
+              "PaaS",
+              "IaaS"
+            ]
           },
           "minItems": 1
         },
@@ -190,11 +201,21 @@
       "allOf": [
         {
           "contains": {
-            "properties": { "contactType": { "const": "Security" } }
+            "properties": {
+              "contactType": {
+                "const": "Security"
+              }
+            }
           }
         },
         {
-          "contains": { "properties": { "contactType": { "const": "Sales" } } }
+          "contains": {
+            "properties": {
+              "contactType": {
+                "const": "Sales"
+              }
+            }
+          }
         }
       ]
     },
@@ -202,7 +223,10 @@
       "type": "object",
       "title": "Independent Assessor",
       "description": "The Independent Assessment Service that performs verification and validation for the Cloud Service Offering (CDS-CSO-PUB).",
-      "required": ["name", "id"],
+      "required": [
+        "name",
+        "id"
+      ],
       "properties": {
         "name": {
           "type": "string",
@@ -223,7 +247,11 @@
       "description": "List of services offered by the provider that are included in this certification (CDS-CSO-SVC).",
       "items": {
         "type": "object",
-        "required": ["serviceName", "serviceDescription", "dateAvailable"],
+        "required": [
+          "serviceName",
+          "serviceDescription",
+          "dateAvailable"
+        ],
         "properties": {
           "serviceName": {
             "type": "string",
@@ -279,7 +307,11 @@
           "description": "Non-FedRAMP Certified third-party information resources.",
           "items": {
             "type": "object",
-            "required": ["name", "provider", "useCase"],
+            "required": [
+              "name",
+              "provider",
+              "useCase"
+            ],
             "properties": {
               "name": {
                 "type": "string",
@@ -323,11 +355,18 @@
           "type": "array",
           "title": "Repository Type",
           "description": "The type(s) or categories of this repository. A single repository may satisfy multiple type requirements.",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "minItems": 1,
           "examples": [
-            ["Secure Configuration Guidance"],
-            ["Trust Center", "Assessment Reports"]
+            [
+              "Secure Configuration Guidance"
+            ],
+            [
+              "Trust Center",
+              "Assessment Reports"
+            ]
           ]
         },
         "url": {
@@ -354,23 +393,33 @@
       },
       "if": {
         "properties": {
-          "authenticationRequired": { "const": true }
+          "authenticationRequired": {
+            "const": true
+          }
         }
       },
       "then": {
-        "required": ["accessRequestInstructions"]
+        "required": [
+          "accessRequestInstructions"
+        ]
       }
     },
     "contactInfo": {
       "type": "object",
       "title": "Contact",
-      "required": ["contactType"],
+      "required": [
+        "contactType"
+      ],
       "properties": {
         "contactType": {
           "type": "string",
           "title": "Contact Type",
           "description": "The role or category of this contact.",
-          "examples": ["Primary", "Security", "Sales"]
+          "examples": [
+            "Primary",
+            "Security",
+            "Sales"
+          ]
         },
         "contactName": {
           "type": "string",

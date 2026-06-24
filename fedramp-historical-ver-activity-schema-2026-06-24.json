@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://fedramp.gov/schemas/ver-tfr-mrh.schema.json",
+  "$id": "https://fedramp.gov/schemas/fedramp-historical-ver-activity-schema-2026-06-24.json",
   "$schemaVersion": "0.0.1",
   "type": "object",
   "title": "FedRAMP Historical Vulnerability Evaluation and Reporting Activity (VER-TFR-MRH)",
@@ -13,7 +13,7 @@
   ],
   "properties": {
     "certificationPackageOverviewUri": {
-      "$ref": "common-definitions.schema.json#/$defs/certificationPackageOverviewUri"
+      "$ref": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json/$defs/certificationPackageOverviewUri"
     },
     "generatedAt": {
       "type": "string",
@@ -26,7 +26,7 @@
       "title": "Active Vulnerabilities",
       "description": "All non-accepted vulnerabilities. Each record follows the fields required by VER-RPT-VDT.",
       "items": {
-        "$ref": "common-definitions.schema.json#/$defs/vulnerabilityDetail"
+        "$ref": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json/$defs/vulnerabilityDetail"
       }
     },
     "acceptedVulnerabilities": {
@@ -34,7 +34,7 @@
       "title": "Accepted Vulnerabilities",
       "description": "All accepted vulnerabilities. Each record follows the fields required by VER-RPT-AVI.",
       "items": {
-        "$ref": "common-definitions.schema.json#/$defs/acceptedVulnerabilityInfo"
+        "$ref": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json/$defs/acceptedVulnerabilityInfo"
       }
     }
   }
