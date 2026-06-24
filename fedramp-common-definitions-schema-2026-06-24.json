@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://fedramp.gov/schemas/common-definitions.schema.json",
+  "$id": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json",
   "$schemaVersion": "0.0.1",
   "$comment": "Draft schema. Not finalized — structure may change.",
   "title": "FedRAMP Common Definitions",
@@ -16,12 +16,21 @@
       "type": "integer",
       "title": "Potential Agency Impact N-Rating",
       "description": "See VER-EVA-EPA or IEC-CSO-EFI for N1–N5 definitions.",
-      "enum": [1, 2, 3, 4, 5]
+      "enum": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
     },
     "detection": {
       "type": "object",
       "title": "Detection",
-      "required": ["detectedAt", "detectionSource"],
+      "required": [
+        "detectedAt",
+        "detectionSource"
+      ],
       "properties": {
         "detectedAt": {
           "type": "string",
@@ -38,7 +47,10 @@
     "painReductionEvent": {
       "type": "object",
       "title": "PAIN Reduction Event",
-      "required": ["reducedAt", "rating"],
+      "required": [
+        "reducedAt",
+        "rating"
+      ],
       "properties": {
         "reducedAt": {
           "type": "string",
@@ -137,8 +149,18 @@
               "title": "Explanation"
             }
           },
-          "if": { "properties": { "isOverdue": { "const": true } } },
-          "then": { "required": ["explanation"] }
+          "if": {
+            "properties": {
+              "isOverdue": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "explanation"
+            ]
+          }
         },
         "supplementaryRiskInformation": {
           "type": "string",
@@ -179,7 +201,10 @@
     "reportPeriodDateTime": {
       "type": "object",
       "title": "Report Period",
-      "required": ["from", "to"],
+      "required": [
+        "from",
+        "to"
+      ],
       "properties": {
         "from": {
           "type": "string",
@@ -196,7 +221,10 @@
     "reportPeriodDate": {
       "type": "object",
       "title": "Report Period",
-      "required": ["from", "to"],
+      "required": [
+        "from",
+        "to"
+      ],
       "properties": {
         "from": {
           "type": "string",

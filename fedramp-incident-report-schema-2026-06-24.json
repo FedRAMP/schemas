@@ -1,19 +1,27 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://fedramp.gov/schemas/iec-cso-incident-report.schema.json",
+  "$id": "https://fedramp.gov/schemas/fedramp-incident-report-schema-2026-06-24.json",
   "$schemaVersion": "0.0.1",
   "type": "object",
   "title": "FedRAMP Incident Report (IEC-CSO-IIR / IEC-CSO-OIR / IEC-CSO-FIR)",
   "description": "Unified schema for the three incident report types in the IEC-CSO lifecycle: Initial (IEC-CSO-IIR), Ongoing (IEC-CSO-OIR), and Final (IEC-CSO-FIR).",
-  "required": ["certificationPackageOverviewUri","reportType", "providerTrackingId"],
+  "required": [
+    "certificationPackageOverviewUri",
+    "reportType",
+    "providerTrackingId"
+  ],
   "properties": {
     "certificationPackageOverviewUri": {
-      "$ref": "common-definitions.schema.json#/$defs/certificationPackageOverviewUri"
+      "$ref": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json/$defs/certificationPackageOverviewUri"
     },
     "reportType": {
       "type": "string",
       "title": "Report Type",
-      "enum": ["Initial", "Ongoing", "Final"],
+      "enum": [
+        "Initial",
+        "Ongoing",
+        "Final"
+      ],
       "description": "Initial = IEC-CSO-IIR; Ongoing = IEC-CSO-OIR; Final = IEC-CSO-FIR."
     },
     "providerTrackingId": {
@@ -73,11 +81,11 @@
           "type": "array",
           "title": "Historical Rating",
           "items": {
-            "$ref": "common-definitions.schema.json#/$defs/nRating"
+            "$ref": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json/$defs/nRating"
           }
         },
         "currentRating": {
-          "$ref": "common-definitions.schema.json#/$defs/nRating",
+          "$ref": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json/$defs/nRating",
           "title": "Current Rating"
         },
         "evaluationNotes": {
@@ -100,7 +108,9 @@
     "affectedAgencies": {
       "type": "array",
       "title": "Likely Affected Customer Agencies",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "observedActivity": {
       "type": "string",
@@ -111,7 +121,9 @@
       "type": "array",
       "title": "Indicators of Compromise",
       "description": "Per IEC-CSO-OIR.",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "relatedCveIds": {
       "type": "array",
@@ -143,14 +155,17 @@
     "milestone": {
       "type": "object",
       "title": "Incident Milestone",
-      "required": ["occurredAt", "description"],
+      "required": [
+        "occurredAt",
+        "milestoneDescription"
+      ],
       "properties": {
         "occurredAt": {
           "type": "string",
           "format": "date-time",
           "title": "Occurred At"
         },
-        "description": {
+        "milestoneDescription": {
           "type": "string",
           "title": "Description"
         }
