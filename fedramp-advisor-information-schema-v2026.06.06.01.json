@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fedramp.gov/schemas/fedramp-advisor-information-schema-v2026.06.06.01.json",
+  "$schemaVersion": "0.0.1",
+  "type": "object",
+  "title": "FedRAMP Advisor Information (MKT-CAS-WEB)",
+  "description": "Public information an Advisory Service must supply in machine-readable format on their website per MKT-CAS-WEB.",
+  "required": [
+    "serviceDescription",
+    "contactInformation",
+    "servicesOffered"
+  ],
+  "properties": {
+    "serviceDescription": {
+      "type": "string",
+      "title": "Service Description",
+      "description": "General description of the consulting or advisory service (MKT-CAS-WEB)."
+    },
+    "contactInformation": {
+      "type": "array",
+      "title": "Contact Information",
+      "description": "Contact information for the advisory organization (MKT-CAS-WEB).",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "servicesOffered": {
+      "type": "array",
+      "title": "Services Offered",
+      "description": "Types of consulting or advisory services offered (MKT-CAS-WEB).",
+      "items": {
+        "$ref": "#/$defs/serviceOffering"
+      },
+      "minItems": 1
+    },
+    "customerReferences": {
+      "type": "array",
+      "title": "Customer References",
+      "description": "Positive attestations from customers or customer references. Optional per MKT-CAS-WEB.",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "$defs": {
+    "serviceOffering": {
+      "type": "object",
+      "title": "Service Offering",
+      "required": [
+        "serviceName"
+      ],
+      "properties": {
+        "serviceName": {
+          "type": "string",
+          "title": "Service Name",
+          "description": "Name of the consulting or advisory service type offered."
+        },
+        "serviceDescription": {
+          "type": "string",
+          "title": "Service Description",
+          "description": "Description of this service type and its scope."
+        }
+      }
+    }
+  }
+}

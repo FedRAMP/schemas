@@ -3,8 +3,8 @@
   "$id": "https://fedramp.gov/schemas/fedramp-security-decision-record-schema-2026-06-24.json",
   "$schemaVersion": "0.0.1",
   "type": "object",
-  "title": "FedRAMP Security Decision Record",
-  "description": "JSON Schema for Cloud Service Provider (CSP) system submission for FedRAMP certification.",
+  "title": "FedRAMP Security Decision Record (SDR-CSO-FRR)",
+  "description": "JSON Schema for Cloud Service Provider (CSP) system submission for FedRAMP certification per SDR-CSO-FRR.",
   "required": [
     "certificationPackageOverviewUri",
     "fedRampRequirements"
