@@ -149,7 +149,7 @@
                 "$ref": "#/$defs/validationStatement"
               }
             },
-            "frrAssesment": {
+            "frrAssessment": {
               "type": "array",
               "title": "Requirement Assessment Statements",
               "description": "Description of the requirement assessment. May use Markdown for formatting.",
@@ -173,7 +173,7 @@
             "ksiId",
             "ksiImplementation",
             "ksiValidation",
-            "ksiAssesment",
+            "ksiAssessment",
             "ksiTests",
             "ksiEvidence"
           ],
@@ -199,7 +199,7 @@
                 "$ref": "#/$defs/validationStatement"
               }
             },
-            "ksiAssesment": {
+            "ksiAssessment": {
               "type": "array",
               "title": "KSI Assessment Statements",
               "description": "Description of the requirement assessment. May use Markdown for formatting.",
