@@ -133,6 +133,16 @@
               "title": "FedRAMP Requirement ID",
               "description": "FedRAMP requirement ID"
             },
+            "frrImplementationStatus": {
+              "title": "Requirement Implementation Status",
+              "description": "Status of the requirement implementation.",
+              "type": "string",
+              "enum": [
+                "Implemented",
+                "Not Implemented",
+                "Partially Implemented"
+              ]
+            },
             "frrImplementation": {
               "type": "array",
               "title": "Requirement Implementation Statements",
@@ -182,6 +192,16 @@
               "type": "string",
               "title": "FedRAMP KSI ID",
               "description": "FedRAMP KSI ID"
+            },
+            "ksiImplementationStatus": {
+              "title": "KSI Implementation Status",
+              "description": "Status of the KSI implementation.",
+              "type": "string",
+              "enum": [
+                "Implemented",
+                "Not Implemented",
+                "Partially Implemented"
+              ]
             },
             "ksiImplementation": {
               "type": "array",
