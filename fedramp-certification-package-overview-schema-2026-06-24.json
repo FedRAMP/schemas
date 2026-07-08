@@ -16,16 +16,7 @@
       "type": "object",
       "title": "Service Identification",
       "description": "Basic identification details for the Cloud Service Offering.",
-      "required": [
-        "providerName",
-        "serviceName",
-        "serviceAcronym",
-        "serviceDescription",
-        "certificationType",
-        "fedRampPackageId",
-        "website",
-        "logo"
-      ],
+      "required": ["providerName", "serviceName", "serviceAcronym", "serviceDescription", "certificationType", "fedRampPackageId", "website", "logo"],
       "properties": {
         "fedRampPackageId": {
           "type": "string",
