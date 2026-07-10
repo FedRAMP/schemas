@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fedramp.gov/schemas/fedramp-historical-ver-activity-schema-2026-06-24.json",
-  "$schemaVersion": "0.0.1",
+  "$schemaVersion": "0.1.0",
   "type": "object",
   "title": "FedRAMP Historical Vulnerability Evaluation and Reporting Activity (VER-TFR-MRH)",
   "description": "Machine-readable historical Vulnerability Evaluation and Reporting activity for automated retrieval per VER-TFR-MRH.",

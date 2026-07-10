@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fedramp.gov/schemas/fedramp-incident-report-schema-2026-06-24.json",
-  "$schemaVersion": "0.0.1",
+  "$schemaVersion": "0.1.0",
   "type": "object",
   "title": "FedRAMP Incident Report (IEC-CSO-IIR / IEC-CSO-OIR / IEC-CSO-FIR)",
   "description": "Unified schema for the three incident report types in the IEC-CSO lifecycle: Initial (IEC-CSO-IIR), Ongoing (IEC-CSO-OIR), and Final (IEC-CSO-FIR).",

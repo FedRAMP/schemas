@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://fedramp.gov/schemas/fedramp-significant-change-notification-schema-2026-06-24.json",
-  "$schemaVersion": "0.0.1",
+  "$id": "https://fedramp.gov/schemas/fedramp-significant-change-notifications-schema-2026-06-24.json",
+  "$schemaVersion": "0.1.0",
   "type": "object",
   "title": "FedRAMP Significant Change Notification (SCN-CSO-INF)",
   "description": "Required information for a Significant Change Notification per SCN-CSO-INF. Note per the rule: structure of the information may vary depending on how the provider tracks this internally.",

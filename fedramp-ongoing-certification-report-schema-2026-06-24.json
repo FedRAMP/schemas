@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fedramp.gov/schemas/fedramp-ongoing-certification-report-schema-2026-06-24.json",
-  "$schemaVersion": "0.0.1",
+  "$schemaVersion": "0.1.0",
   "type": "object",
   "title": "FedRAMP Ongoing Certification Report (CCM-OCR-AVL)",
   "description": "Quarterly Ongoing Certification Report (OCR) per CCM-OCR-AVL, covering the entire period since the previous report.",
