@@ -5,7 +5,8 @@
   "scripts": {
     "pretty": "bun run prettier --write ../*.json",
     "typecheck": "tsc --noEmit",
-    "test": "bun test"
+    "test": "bun test",
+    "version-bump": "bun version-bump.ts"
   },
   "private": true,
   "devDependencies": {

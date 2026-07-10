@@ -8,6 +8,44 @@ const schemaFiles = readdirSync(schemasDir).filter((f) => f.endsWith(".json"));
 
 const ajv = new Ajv({ strict: false });
 
+// Regex passed to `git ... -G` to find commits/diffs that touch the
+// "$schemaVersion" value line specifically (as opposed to any other line in
+// the file). The leading backslash escapes "$" so git's regex engine treats
+// it as a literal dollar sign rather than an end-of-line anchor.
+const SCHEMA_VERSION_LINE_PATTERN = '"\\$schemaVersion":';
+
+function git(args: string[]): string {
+  const proc = Bun.spawnSync(["git", ...args], { cwd: schemasDir });
+  if (!proc.success) throw new Error(`git ${args.join(" ")} failed: ${proc.stderr.toString()}`);
+  return proc.stdout.toString().trim();
+}
+
+function isGitAvailable(): boolean {
+  const proc = Bun.spawnSync(["git", "rev-parse", "--is-inside-work-tree"], { cwd: schemasDir });
+  return proc.success;
+}
+
+// Finds commits touching `file` since its last "$schemaVersion" change
+// (including uncommitted working-tree edits), and reports them if none of
+// those changes touched "$schemaVersion" itself.
+function findUnversionedChanges(file: string): string[] | null {
+  const lastBump = git(["log", "-1", "--format=%H", "-G", SCHEMA_VERSION_LINE_PATTERN, "--", file]);
+  if (lastBump === "") return null; // no history yet (new/untracked file)
+
+  const changedSinceBump = git(["diff", "--name-only", lastBump, "--", file]) !== "";
+  if (!changedSinceBump) return null;
+
+  const versionChangedSinceBump =
+    git(["diff", "-G", SCHEMA_VERSION_LINE_PATTERN, "--name-only", lastBump, "--", file]) !== "";
+  if (versionChangedSinceBump) return null;
+
+  const commits = git(["log", "--format=%h %s", `${lastBump}..HEAD`, "--", file]);
+  const details = commits === "" ? [] : commits.split("\n");
+  const status = git(["status", "--porcelain", "--", file]);
+  if (status !== "") details.push("(plus uncommitted changes)");
+  return details;
+}
+
 // Indexes a JSON document's source text, mapping every JSON Pointer
 // (RFC 6901, e.g. "/properties/foo/required/0") to the 1-based line number
 // where that key or array element starts. Lets errors cite "file:line"
@@ -224,5 +262,52 @@ describe("fields have a title and description", () => {
       const errors = findFieldsMissingTitleOrDescription(schema, locations, file);
       if (errors.length > 0) throw new Error(errors.join("\n"));
     });
+  }
+});
+
+// The filename (including its CR26 release date) is frozen as part of the
+// schema's identity: other schemas $ref it by that exact URL, and any
+// already-published $id is a promise to whoever validated a package against
+// it. This check exists to catch drift like $id being hand-edited out of
+// sync with a rename — see CHANGELOG.md's 2026-07-10 baseline entry.
+describe("$id matches filename", () => {
+  for (const file of schemaFiles) {
+    test(file, async () => {
+      const { schema } = await loadSchema(file);
+      expect(schema.$id).toBe(`https://fedramp.gov/schemas/${file}`);
+    });
+  }
+});
+
+describe("$schemaVersion is valid SemVer", () => {
+  for (const file of schemaFiles) {
+    test(file, async () => {
+      const { schema } = await loadSchema(file);
+      expect(schema.$schemaVersion).toMatch(/^\d+\.\d+\.\d+$/);
+    });
+  }
+});
+
+// Catches the common mistake of editing a schema's content and forgetting to
+// run `bun run version-bump` before committing (see README.md#versioning).
+// Compares each file's current state (working tree, so this also catches
+// uncommitted edits) against its last commit that touched "$schemaVersion".
+describe("schemas are version-bumped for their latest content changes", () => {
+  if (!isGitAvailable()) {
+    test.skip("skipped: not running inside a git work tree", () => {});
+  } else {
+    for (const file of schemaFiles) {
+      test(file, () => {
+        const unversioned = findUnversionedChanges(file);
+        if (unversioned && unversioned.length > 0) {
+          throw new Error(
+            `${file} changed without a $schemaVersion bump. Run:\n` +
+              `  cd tools && bun run version-bump ${file} <patch|minor|major> "<description>"\n` +
+              `Changes since the last bump:\n` +
+              unversioned.map((l) => `    ${l}`).join("\n")
+          );
+        }
+      });
+    }
   }
 });
