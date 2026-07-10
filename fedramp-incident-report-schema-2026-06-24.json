@@ -47,25 +47,30 @@
         "startedAt": {
           "type": "string",
           "format": "date-time",
-          "title": "Started At"
+          "title": "Started At",
+          "description": "When the incident started."
         },
         "detectedAt": {
           "type": "string",
           "format": "date-time",
-          "title": "Detected At"
+          "title": "Detected At",
+          "description": "When the incident was detected."
         },
         "detectionSource": {
           "type": "string",
-          "title": "Detection Source"
+          "title": "Detection Source",
+          "description": "Source of the incident detection."
         },
         "evaluationCompletedAt": {
           "type": "string",
           "format": "date-time",
-          "title": "FedRAMP Reportable Incident Evaluation Completed At"
+          "title": "FedRAMP Reportable Incident Evaluation Completed At",
+          "description": "When the FedRAMP reportable incident evaluation was completed."
         },
         "milestones": {
           "type": "array",
           "title": "Milestones",
+          "description": "Major events in the incident lifecycle.",
           "items": {
             "$ref": "#/$defs/milestone"
           }
@@ -80,13 +85,15 @@
         "historicalRating": {
           "type": "array",
           "title": "Historical Rating",
+          "description": "Historical rating of the incident.",
           "items": {
             "$ref": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json/$defs/nRating"
           }
         },
         "currentRating": {
           "$ref": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json/$defs/nRating",
-          "title": "Current Rating"
+          "title": "Current Rating",
+          "description": "Current rating of the incident."
         },
         "evaluationNotes": {
           "type": "string",
@@ -108,6 +115,7 @@
     "affectedAgencies": {
       "type": "array",
       "title": "Likely Affected Customer Agencies",
+      "description": "List of customer agencies that may be affected by the incident.",
       "items": {
         "type": "string"
       }
@@ -155,6 +163,7 @@
     "milestone": {
       "type": "object",
       "title": "Incident Milestone",
+      "description": "Major events in the incident lifecycle.",
       "required": [
         "occurredAt",
         "milestoneDescription"
@@ -163,11 +172,13 @@
         "occurredAt": {
           "type": "string",
           "format": "date-time",
-          "title": "Occurred At"
+          "title": "Occurred At",
+          "description": "When the milestone occurred."
         },
         "milestoneDescription": {
           "type": "string",
-          "title": "Description"
+          "title": "Description",
+          "description": "Description of the milestone."
         }
       }
     }
