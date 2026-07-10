@@ -47,6 +47,7 @@
     "serviceOffering": {
       "type": "object",
       "title": "Service Offering",
+      "description": "A specific type of assessment service offered by the assessor.",
       "required": [
         "serviceName"
       ],
