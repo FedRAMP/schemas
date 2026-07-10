@@ -26,6 +26,7 @@
     "detection": {
       "type": "object",
       "title": "Detection",
+      "description": "Required information for a single detected vulnerability per VER-RPT-VDT.",
       "required": [
         "detectedAt",
         "detectionSource"
@@ -34,7 +35,8 @@
         "detectedAt": {
           "type": "string",
           "format": "date-time",
-          "title": "Detected At"
+          "title": "Detected At",
+          "description": "When the vulnerability was detected."
         },
         "detectionSource": {
           "type": "string",
@@ -46,6 +48,7 @@
     "painReductionEvent": {
       "type": "object",
       "title": "PAIN Reduction Event",
+      "description": "Required information for a single PAIN reduction event per VER-RPT-PAE.",
       "required": [
         "reducedAt",
         "rating"
@@ -54,11 +57,13 @@
         "reducedAt": {
           "type": "string",
           "format": "date-time",
-          "title": "Reduced At"
+          "title": "Reduced At",
+          "description": "When the PAIN reduction was completed."
         },
         "rating": {
           "$ref": "#/$defs/nRating",
-          "title": "Rating After Reduction"
+          "title": "Rating After Reduction",
+          "description": "N-rating after the PAIN reduction."
         }
       }
     },
@@ -123,11 +128,13 @@
             "estimatedAt": {
               "type": "string",
               "format": "date-time",
-              "title": "Estimated At"
+              "title": "Estimated At",
+              "description": "When the next reduction is expected."
             },
             "targetRating": {
               "$ref": "#/$defs/nRating",
-              "title": "Target Rating"
+              "title": "Target Rating",
+              "description": "Next Potential Agency Impact N-rating."
             }
           }
         },
@@ -141,21 +148,27 @@
           "properties": {
             "isOverdue": {
               "type": "boolean",
-              "title": "Is Overdue"
+              "title": "Is Overdue",
+              "description": "True if the vulnerability is overdue."
             },
             "explanation": {
               "type": "string",
-              "title": "Explanation"
+              "title": "Explanation",
+              "description": "Reason for the overdue status."
             }
           },
           "if": {
             "properties": {
               "isOverdue": {
+                "title": "Is Overdue",
+              "description": "True if the vulnerability is overdue.",
                 "const": true
               }
             }
           },
           "then": {
+            "title": "Explanation",
+              "description": "Reason for the overdue status.",
             "required": [
               "explanation"
             ]
@@ -200,6 +213,7 @@
     "reportPeriodDateTime": {
       "type": "object",
       "title": "Report Period",
+      "description": "From and To dates for the report period.",
       "required": [
         "from",
         "to"
@@ -208,18 +222,21 @@
         "from": {
           "type": "string",
           "format": "date-time",
-          "title": "From"
+          "title": "From",
+          "description": "Start date for the report period."
         },
         "to": {
           "type": "string",
           "format": "date-time",
-          "title": "To"
+          "title": "To",
+          "description": "End date for the report period."
         }
       }
     },
     "reportPeriodDate": {
       "type": "object",
       "title": "Report Period",
+      "description": "From and To dates for the report period.",
       "required": [
         "from",
         "to"
@@ -228,12 +245,14 @@
         "from": {
           "type": "string",
           "format": "date",
-          "title": "From"
+          "title": "From",
+          "description": "Start date for the report period."
         },
         "to": {
           "type": "string",
           "format": "date",
-          "title": "To"
+          "title": "To",
+          "description": "End date for the report period."
         }
       }
     }
