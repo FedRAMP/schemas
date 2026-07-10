@@ -51,6 +51,7 @@
         "changes": {
           "type": "array",
           "title": "Changes",
+          "description": "Summary of planned changes to FedRAMP Certification Data.",
           "items": {
             "type": "string"
           }
@@ -107,20 +108,24 @@
     "incidentSummary": {
       "type": "object",
       "title": "Incident Summary",
+      "description": "Summary of a FedRAMP Reportable Incident.",
       "properties": {
         "summary": {
           "type": "string",
-          "title": "Summary"
+          "title": "Summary",
+          "description": "Brief description of the incident."
         },
         "occurredAt": {
           "type": "string",
           "format": "date-time",
-          "title": "Occurred At"
+          "title": "Occurred At",
+          "description": "Date and time the incident occurred."
         },
         "resolvedAt": {
           "type": "string",
           "format": "date-time",
-          "title": "Resolved At"
+          "title": "Resolved At",
+          "description": "Date and time the incident was resolved."
         },
         "incidentLessonsLearned": {
           "type": "array",
