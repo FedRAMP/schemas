@@ -78,8 +78,7 @@
       "description": "Technical and operational properties of the Cloud Service Offering.",
       "required": [
         "serviceType",
-        "deploymentModel",
-        "digitalIdentityLevel"
+        "deploymentModel"
       ],
       "properties": {
         "serviceType": {
@@ -194,6 +193,8 @@
           "contains": {
             "properties": {
               "contactType": {
+                "title": "Contact Type",
+          "description": "The role or category of this contact.",
                 "const": "Security"
               }
             }
@@ -203,6 +204,8 @@
           "contains": {
             "properties": {
               "contactType": {
+                "title": "Contact Type",
+          "description": "The role or category of this contact.",
                 "const": "Sales"
               }
             }
@@ -216,7 +219,7 @@
       "description": "The Independent Assessment Service that performs verification and validation for the Cloud Service Offering (CDS-CSO-PUB).",
       "required": [
         "name",
-        "id"
+        "assessorID"
       ],
       "properties": {
         "name": {
@@ -335,6 +338,7 @@
     "repository": {
       "type": "object",
       "title": "Repository",
+      "description": "A repository location for system authorization documentation, policies, procedures, assessment reports, etc.",
       "required": [
         "repositoryType",
         "url",
@@ -385,6 +389,8 @@
       "if": {
         "properties": {
           "authenticationRequired": {
+            "title": "Authentication Required",
+          "description": "Whether authentication is required to access the repository.",
             "const": true
           }
         }
@@ -398,6 +404,7 @@
     "contactInfo": {
       "type": "object",
       "title": "Contact",
+      "description": "A contact for the Cloud Service Provider.",
       "required": [
         "contactType"
       ],
@@ -414,12 +421,14 @@
         },
         "contactName": {
           "type": "string",
-          "title": "Name"
+          "title": "Name",
+          "description": "Name of the contact. May be a specific person or the role of the contact."
         },
         "contactEmail": {
           "type": "string",
           "format": "email",
-          "title": "Email"
+          "title": "Email",
+          "description": "Email address of the contact."
         },
         "contactPhone": {
           "type": "string",
