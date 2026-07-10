@@ -173,6 +173,7 @@
     },
     "keySecurityIndicators": {
       "title": "FedRAMP Key Security Indicators",
+      "description": "Describe how the system meets the FedRAMP Key Security Indicators (KSI).",
       "type": "array",
       "items": {
         "keySecurityIndicator": {
@@ -229,12 +230,16 @@
             },
             "ksiTests": {
               "type": "array",
+              "title": "KSI Tests",
+              "description": "List of tests used to validate the KSI implementation.",
               "items": {
                 "type": "string"
               }
             },
             "ksiEvidence": {
               "type": "array",
+              "title": "KSI Evidence",
+              "description": "Results of the security test used to validate the KSI implementation.",
               "items": {
                 "$ref": "#/$defs/evidence"
               }
