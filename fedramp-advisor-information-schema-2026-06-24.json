@@ -47,6 +47,7 @@
     "serviceOffering": {
       "type": "object",
       "title": "Service Offering",
+      "description": "Consulting or advisory service offered",
       "required": [
         "serviceName"
       ],
