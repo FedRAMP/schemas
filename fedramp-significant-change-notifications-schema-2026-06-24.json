@@ -27,11 +27,11 @@
     "changeType": {
       "type": "string",
       "title": "Type",
+      "description": "Significant change type per SCN-CSO-EVA. Routine recurring changes (SCN-RTR) do not require a Significant Change Notification.",
       "enum": [
         "Adaptive",
         "Transformative"
-      ],
-      "description": "Significant change type per SCN-CSO-EVA. Routine recurring changes (SCN-RTR) do not require a Significant Change Notification."
+      ]
     },
     "changeTypeExplanation": {
       "type": "string",
@@ -45,7 +45,8 @@
     },
     "reason": {
       "type": "string",
-      "title": "Reason for Change"
+      "title": "Reason for Change",
+      "description": "Reason for the change."
     },
     "customerImpact": {
       "type": "string",
@@ -62,21 +63,25 @@
       "properties": {
         "summary": {
           "type": "string",
-          "title": "Summary"
+          "title": "Summary",
+          "description": "Human readable summary of the timeline and plan for the change. May use Markdown for formatting."
         },
         "plannedStart": {
           "type": "string",
           "format": "date",
-          "title": "Planned Start"
+          "title": "Planned Start",
+          "description": "The first date on which changes will be made to the system."
         },
         "plannedCompletion": {
           "type": "string",
           "format": "date",
-          "title": "Planned Completion"
+          "title": "Planned Completion",
+          "description": "The date on which the changes will be considered complete. This should include any planned testing and monitoring activities."
         },
         "milestones": {
           "type": "array",
           "title": "Milestones",
+          "description": "Milestones for the change, including dates and descriptions.",
           "items": {
             "type": "object",
             "required": [
@@ -85,12 +90,14 @@
             "properties": {
               "milestoneDescription": {
                 "type": "string",
-                "title": "Description"
+                "title": "Description",
+                "description": "Human readable description of the milestone."
               },
               "targetDate": {
                 "type": "string",
                 "format": "date",
-                "title": "Target Date"
+                "title": "Target Date",
+                "description": "The date on which the milestone is expected to be completed."
               }
             }
           }
