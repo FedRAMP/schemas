@@ -12,7 +12,7 @@
   ],
   "properties": {
     "certificationPackageOverviewUri": {
-      "$ref": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json/$defs/certificationPackageOverviewUri"
+      "$ref": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json#/$defs/certificationPackageOverviewUri"
     },
     "assessorName": {
       "type": "string",

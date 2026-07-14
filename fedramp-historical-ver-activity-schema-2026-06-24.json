@@ -13,7 +13,7 @@
   ],
   "properties": {
     "certificationPackageOverviewUri": {
-      "$ref": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json/$defs/certificationPackageOverviewUri"
+      "$ref": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json#/$defs/certificationPackageOverviewUri"
     },
     "generatedAt": {
       "type": "string",
@@ -26,7 +26,7 @@
       "title": "Active Vulnerabilities",
       "description": "All non-accepted vulnerabilities. Each record follows the fields required by VER-RPT-VDT.",
       "items": {
-        "$ref": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json/$defs/vulnerabilityDetail"
+        "$ref": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json#/$defs/vulnerabilityDetail"
       }
     },
     "acceptedVulnerabilities": {
@@ -34,7 +34,7 @@
       "title": "Accepted Vulnerabilities",
       "description": "All accepted vulnerabilities. Each record follows the fields required by VER-RPT-AVI.",
       "items": {
-        "$ref": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json/$defs/acceptedVulnerabilityInfo"
+        "$ref": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json#/$defs/acceptedVulnerabilityInfo"
       }
     }
   }
