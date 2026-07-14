@@ -3,10 +3,14 @@
 All notable changes to the FedRAMP CR26 JSON Schemas are documented in this file.
 
 Each schema file carries its own `$schemaVersion` field (SemVer), versioned independently of
-the others. Entries below are newest first and record, per date, which schema(s) changed, the
+the others. The entries below are newest first and record, per date, which schema(s) changed, the
 version each moved to, and why. New entries are appended automatically by
 `tools/version-bump.ts` (see [README.md](README.md#versioning) for the policy) — don't hand-edit
 past entries.
+
+## 2026-07-14 — fedramp-certification-package-overview-schema-2026-06-24.json → 0.1.1 (patch)
+
+Assessor is no longer a required element to accommodate class A providers who do not yet have an assessor. If an assessor is provided, then the assessor must have a valid fedRAMP assessor id (was 0.1.0).
 
 ## 2026-07-10 — Baseline frozen (all schemas → 0.1.0)
 
