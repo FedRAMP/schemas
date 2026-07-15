@@ -8,6 +8,10 @@ version each moved to, and why. New entries are appended automatically by
 `tools/version-bump.ts` (see [README.md](README.md#versioning) for the policy) — don't hand-edit
 past entries.
 
+## 2026-07-15 — fedramp-security-decision-record-schema-2026-06-24.json → 0.1.1 (patch)
+
+Fix malformed array item schemas: securityControls, fedRampRequirements, and keySecurityIndicators nested their item schemas under non-keyword wrapper keys, and portsAndProtocols placed per-item properties as a sibling of items; under JSON Schema 2020-12 these collapsed each items to any-object. Extracted each into $defs and referenced them from items. (was 0.1.0).
+
 ## 2026-07-14 — fedramp-certification-package-overview-schema-2026-06-24.json → 0.1.1 (patch)
 
 Assessor is no longer a required element to accommodate class A providers who do not yet have an assessor. If an assessor is provided, then the assessor must have a valid fedRAMP assessor id (was 0.1.0).

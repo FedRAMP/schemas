@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fedramp.gov/schemas/fedramp-security-decision-record-schema-2026-06-24.json",
-  "$schemaVersion": "0.1.0",
+  "$schemaVersion": "0.1.1",
   "type": "object",
   "title": "FedRAMP Security Decision Record (SDR-CSO-FRR)",
   "description": "JSON Schema for Cloud Service Provider (CSP) system submission for FedRAMP certification per SDR-CSO-FRR.",
@@ -18,10 +18,39 @@
       "title": "Ports and Protocols",
       "description": "Ports and protocols used by the Cloud Service Offering",
       "items": {
-        "type": "object",
-        "title": "Port and Protocol",
-        "description": "Port and protocol exposed by the Cloud Service Offering"
-      },
+        "$ref": "#/$defs/portAndProtocol"
+      }
+    },
+    "securityControls": {
+      "type": "array",
+      "title": "NIST 800-53 Security Controls",
+      "description": "Describe the security controls for the system.",
+      "items": {
+        "$ref": "#/$defs/nistSecurityControl"
+      }
+    },
+    "fedRampRequirements": {
+      "type": "array",
+      "title": "FedRAMP Requirements",
+      "description": "Describe how any applicable FedRAMP required processes are met.",
+      "items": {
+        "$ref": "#/$defs/fedRAMPRequirement"
+      }
+    },
+    "keySecurityIndicators": {
+      "title": "FedRAMP Key Security Indicators",
+      "description": "Describe how the system meets the FedRAMP Key Security Indicators (KSI).",
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/keySecurityIndicator"
+      }
+    }
+  },
+  "$defs": {
+    "portAndProtocol": {
+      "type": "object",
+      "title": "Port and Protocol",
+      "description": "Port and protocol exposed by the Cloud Service Offering",
       "properties": {
         "serviceName": {
           "type": "string",
@@ -50,206 +79,184 @@
         }
       }
     },
-    "securityControls": {
-      "type": "array",
-      "title": "NIST 800-53 Security Controls",
-      "description": "Describe the security controls for the system.",
-      "items": {
-        "nistSecurityControl": {
-          "type": "object",
-          "description": "NIST 800-53 Security Control",
-          "properties": {
-            "controlId": {
-              "type": "string",
-              "description": "NIST 800-53 Control ID",
-              "examples": [
-                "AC-1",
-                "AC-2",
-                "AC-3"
-              ],
-              "title": "NIST 800-53 Control ID"
-            },
-            "parameterValues": {
-              "type": "array",
-              "title": "Parameter Values",
-              "description": "Parameter values for the control",
-              "items": {
-                "type": "object",
-                "required": [
-                  "parameterId",
-                  "parameterValue"
-                ],
+    "nistSecurityControl": {
+      "type": "object",
+      "title": "NIST 800-53 Security Control",
+      "description": "NIST 800-53 Security Control",
+      "properties": {
+        "controlId": {
+          "type": "string",
+          "description": "NIST 800-53 Control ID",
+          "examples": [
+            "AC-1",
+            "AC-2",
+            "AC-3"
+          ],
+          "title": "NIST 800-53 Control ID"
+        },
+        "parameterValues": {
+          "type": "array",
+          "title": "Parameter Values",
+          "description": "Parameter values for the control",
+          "items": {
+            "type": "object",
+            "required": [
+              "parameterId",
+              "parameterValue"
+            ],
+            "title": "Parameter Value",
+            "description": "Parameter value for the control",
+            "properties": {
+              "parameterId": {
+                "type": "string",
+                "title": "Parameter ID",
+                "description": "The parameter ID as defined in the NIST 800-53 Control Implementation Guide."
+              },
+              "parameterValue": {
+                "type": "string",
                 "title": "Parameter Value",
-                "description": "Parameter value for the control",
-                "properties": {
-                  "parameterId": {
-                    "type": "string",
-                    "title": "Parameter ID",
-                    "description": "The parameter ID as defined in the NIST 800-53 Control Implementation Guide."
-                  },
-                  "parameterValue": {
-                    "type": "string",
-                    "title": "Parameter Value",
-                    "description": "The parameter value selected by the Cloud Service Provider. If the parameter is a boolean, provide 'true' or 'false'. If the parameter is a list, provide a comma-separated list of values."
-                  }
-                }
+                "description": "The parameter value selected by the Cloud Service Provider. If the parameter is a boolean, provide 'true' or 'false'. If the parameter is a list, provide a comma-separated list of values."
               }
-            },
-            "controlImplementationStatus": {
-              "type": "string",
-              "title": "Control Implementation Status",
-              "description": "Status of the control implementation",
-              "enum": [
-                "Implemented",
-                "Not Implemented",
-                "Partially Implemented"
-              ]
-            },
-            "controlImplementationDescription": {
-              "type": "string",
-              "title": "Control Implementation Description",
-              "description": "Description of the control implementation. May use Markdown for formatting."
             }
+          }
+        },
+        "controlImplementationStatus": {
+          "type": "string",
+          "title": "Control Implementation Status",
+          "description": "Status of the control implementation",
+          "enum": [
+            "Implemented",
+            "Not Implemented",
+            "Partially Implemented"
+          ]
+        },
+        "controlImplementationDescription": {
+          "type": "string",
+          "title": "Control Implementation Description",
+          "description": "Description of the control implementation. May use Markdown for formatting."
+        }
+      }
+    },
+    "fedRAMPRequirement": {
+      "type": "object",
+      "title": "FedRAMP Requirement",
+      "description": "FedRAMP requirement",
+      "required": [
+        "frrID",
+        "frrImplementation"
+      ],
+      "properties": {
+        "frrID": {
+          "type": "string",
+          "title": "FedRAMP Requirement ID",
+          "description": "FedRAMP requirement ID"
+        },
+        "frrImplementationStatus": {
+          "title": "Requirement Implementation Status",
+          "description": "Status of the requirement implementation.",
+          "type": "string",
+          "enum": [
+            "Implemented",
+            "Not Implemented",
+            "Partially Implemented"
+          ]
+        },
+        "frrImplementation": {
+          "type": "array",
+          "title": "Requirement Implementation Statements",
+          "description": "Description of the requirement implementation. May use Markdown for formatting.",
+          "items": {
+            "$ref": "#/$defs/implementationStatement"
+          }
+        },
+        "frrValidation": {
+          "type": "array",
+          "title": "Requirement Validation Statements",
+          "description": "Description of the requirement validation. May use Markdown for formatting.",
+          "items": {
+            "$ref": "#/$defs/validationStatement"
+          }
+        },
+        "frrAssessment": {
+          "type": "array",
+          "title": "Requirement Assessment Statements",
+          "description": "Description of the requirement assessment. May use Markdown for formatting.",
+          "items": {
+            "$ref": "#/$defs/assessmentStatement"
           }
         }
       }
     },
-    "fedRampRequirements": {
-      "type": "array",
-      "title": "FedRAMP Requirements",
-      "description": "Describe how any applicable FedRAMP required processes are met.",
-      "items": {
-        "fedRAMPRequirement": {
-          "type": "object",
-          "title": "FedRAMP Requirement",
-          "description": "FedRAMP requirement",
-          "required": [
-            "frrID",
-            "frrImplementation"
-          ],
-          "properties": {
-            "frrID": {
-              "type": "string",
-              "title": "FedRAMP Requirement ID",
-              "description": "FedRAMP requirement ID"
-            },
-            "frrImplementationStatus": {
-              "title": "Requirement Implementation Status",
-              "description": "Status of the requirement implementation.",
-              "type": "string",
-              "enum": [
-                "Implemented",
-                "Not Implemented",
-                "Partially Implemented"
-              ]
-            },
-            "frrImplementation": {
-              "type": "array",
-              "title": "Requirement Implementation Statements",
-              "description": "Description of the requirement implementation. May use Markdown for formatting.",
-              "items": {
-                "$ref": "#/$defs/implementationStatement"
-              }
-            },
-            "frrValidation": {
-              "type": "array",
-              "title": "Requirement Validation Statements",
-              "description": "Description of the requirement validation. May use Markdown for formatting.",
-              "items": {
-                "$ref": "#/$defs/validationStatement"
-              }
-            },
-            "frrAssessment": {
-              "type": "array",
-              "title": "Requirement Assessment Statements",
-              "description": "Description of the requirement assessment. May use Markdown for formatting.",
-              "items": {
-                "$ref": "#/$defs/assessmentStatement"
-              }
-            }
+    "keySecurityIndicator": {
+      "type": "object",
+      "title": "FedRAMP Key Security Indicator",
+      "description": "How the Key Security Indictor objective is achieved and monitored",
+      "required": [
+        "ksiId",
+        "ksiImplementation",
+        "ksiValidation",
+        "ksiAssessment",
+        "ksiTests",
+        "ksiEvidence"
+      ],
+      "properties": {
+        "ksiId": {
+          "type": "string",
+          "title": "FedRAMP KSI ID",
+          "description": "FedRAMP KSI ID"
+        },
+        "ksiImplementationStatus": {
+          "title": "KSI Implementation Status",
+          "description": "Status of the KSI implementation.",
+          "type": "string",
+          "enum": [
+            "Implemented",
+            "Not Implemented",
+            "Partially Implemented"
+          ]
+        },
+        "ksiImplementation": {
+          "type": "array",
+          "title": "KSI Implementation Statements",
+          "description": "Description of the requirement implementation. May use Markdown for formatting.",
+          "items": {
+            "$ref": "#/$defs/implementationStatement"
+          }
+        },
+        "ksiValidation": {
+          "type": "array",
+          "title": "KSI Validation Statements",
+          "description": "Description of the requirement validation. May use Markdown for formatting.",
+          "items": {
+            "$ref": "#/$defs/validationStatement"
+          }
+        },
+        "ksiAssessment": {
+          "type": "array",
+          "title": "KSI Assessment Statements",
+          "description": "Description of the requirement assessment. May use Markdown for formatting.",
+          "items": {
+            "$ref": "#/$defs/assessmentStatement"
+          }
+        },
+        "ksiTests": {
+          "type": "array",
+          "title": "KSI Tests",
+          "description": "List of tests used to validate the KSI implementation.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ksiEvidence": {
+          "type": "array",
+          "title": "KSI Evidence",
+          "description": "Results of the security test used to validate the KSI implementation.",
+          "items": {
+            "$ref": "#/$defs/evidence"
           }
         }
       }
     },
-    "keySecurityIndicators": {
-      "title": "FedRAMP Key Security Indicators",
-      "description": "Describe how the system meets the FedRAMP Key Security Indicators (KSI).",
-      "type": "array",
-      "items": {
-        "keySecurityIndicator": {
-          "type": "object",
-          "title": "FedRAMP Key Security Indicator",
-          "description": "How the Key Security Indictor objective is achieved and monitored",
-          "required": [
-            "ksiId",
-            "ksiImplementation",
-            "ksiValidation",
-            "ksiAssessment",
-            "ksiTests",
-            "ksiEvidence"
-          ],
-          "properties": {
-            "ksiId": {
-              "type": "string",
-              "title": "FedRAMP KSI ID",
-              "description": "FedRAMP KSI ID"
-            },
-            "ksiImplementationStatus": {
-              "title": "KSI Implementation Status",
-              "description": "Status of the KSI implementation.",
-              "type": "string",
-              "enum": [
-                "Implemented",
-                "Not Implemented",
-                "Partially Implemented"
-              ]
-            },
-            "ksiImplementation": {
-              "type": "array",
-              "title": "KSI Implementation Statements",
-              "description": "Description of the requirement implementation. May use Markdown for formatting.",
-              "items": {
-                "$ref": "#/$defs/implementationStatement"
-              }
-            },
-            "ksiValidation": {
-              "type": "array",
-              "title": "KSI Validation Statements",
-              "description": "Description of the requirement validation. May use Markdown for formatting.",
-              "items": {
-                "$ref": "#/$defs/validationStatement"
-              }
-            },
-            "ksiAssessment": {
-              "type": "array",
-              "title": "KSI Assessment Statements",
-              "description": "Description of the requirement assessment. May use Markdown for formatting.",
-              "items": {
-                "$ref": "#/$defs/assessmentStatement"
-              }
-            },
-            "ksiTests": {
-              "type": "array",
-              "title": "KSI Tests",
-              "description": "List of tests used to validate the KSI implementation.",
-              "items": {
-                "type": "string"
-              }
-            },
-            "ksiEvidence": {
-              "type": "array",
-              "title": "KSI Evidence",
-              "description": "Results of the security test used to validate the KSI implementation.",
-              "items": {
-                "$ref": "#/$defs/evidence"
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "$defs": {
     "evidence": {
       "type": "object",
       "description": "Results of the security test",
