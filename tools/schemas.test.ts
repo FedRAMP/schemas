@@ -2,6 +2,7 @@ import { test, expect, describe } from "bun:test";
 import Ajv from "ajv/dist/2020";
 import { readdirSync } from "node:fs";
 import { resolve } from "node:path";
+import { canonicalizeNode } from "./schema-key-order";
 
 const schemasDir = resolve(import.meta.dir, "..");
 const schemaFiles = readdirSync(schemasDir).filter((f) => f.endsWith(".json"));
@@ -260,6 +261,37 @@ describe("fields have a title and description", () => {
     test(file, async () => {
       const { schema, locations } = await loadSchema(file);
       const errors = findFieldsMissingTitleOrDescription(schema, locations, file);
+      if (errors.length > 0) throw new Error(errors.join("\n"));
+    });
+  }
+});
+
+// Every schema node's own keys (e.g. "type", "title", "enum", "description")
+// must follow the canonical order from schema-key-order.ts. Property/$defs
+// names themselves are exempt — only the JSON Schema keywords within each
+// node are checked. Run `bun run normalize-order` to fix violations.
+function findKeyOrderViolations(schema: unknown, locations: Map<string, number>, file: string): string[] {
+  const errors: string[] = [];
+  walk(schema, "", (obj, pointer) => {
+    const actual = Object.keys(obj);
+    const expected = Object.keys(canonicalizeNode(obj));
+    if (actual.join(",") !== expected.join(",")) {
+      const line = locations.get(pointer);
+      errors.push(
+        `${file}:${line ?? "?"} ${pointer || "(root)"}: keys out of order\n` +
+          `    got:      ${actual.join(", ")}\n` +
+          `    expected: ${expected.join(", ")}`
+      );
+    }
+  });
+  return errors;
+}
+
+describe("schema node keys are in canonical order", () => {
+  for (const file of schemaFiles) {
+    test(file, async () => {
+      const { schema, locations } = await loadSchema(file);
+      const errors = findKeyOrderViolations(schema, locations, file);
       if (errors.length > 0) throw new Error(errors.join("\n"));
     });
   }
