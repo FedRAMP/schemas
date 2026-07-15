@@ -8,6 +8,10 @@ version each moved to, and why. New entries are appended automatically by
 `tools/version-bump.ts` (see [README.md](README.md#versioning) for the policy) — don't hand-edit
 past entries.
 
+## 2026-07-15 — fedramp-security-decision-record-schema-2026-06-24.json → 1.0.0 (major)
+
+Fix items schemas for portsAndProtocols, securityControls, fedRampRequirements, and keySecurityIndicators: properties was a dead sibling of items (ignored on array instances) or the real object schema was nested under a non-keyword wrapper key (nistSecurityControl/fedRAMPRequirement/keySecurityIndicator) that ajv silently ignored, so array elements were effectively unvalidated. Now items directly declares type/required/properties for each element. (was 0.1.1).
+
 ## 2026-07-15 — fedramp-significant-change-notifications-schema-2026-06-24.json → 0.1.1 (patch)
 
 Normalize JSON Schema keyword order within each node (no semantic change). (was 0.1.0).
