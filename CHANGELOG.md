@@ -8,6 +8,38 @@ version each moved to, and why. New entries are appended automatically by
 `tools/version-bump.ts` (see [README.md](README.md#versioning) for the policy) — don't hand-edit
 past entries.
 
+## 2026-07-15 — fedramp-significant-change-notifications-schema-2026-06-24.json → 0.1.1 (patch)
+
+Normalize JSON Schema keyword order within each node (no semantic change). (was 0.1.0).
+
+## 2026-07-15 — fedramp-security-decision-record-schema-2026-06-24.json → 0.1.1 (patch)
+
+Normalize JSON Schema keyword order within each node (no semantic change). (was 0.1.0).
+
+## 2026-07-15 — fedramp-ongoing-certification-report-schema-2026-06-24.json → 0.1.1 (patch)
+
+Normalize JSON Schema keyword order within each node (no semantic change). (was 0.1.0).
+
+## 2026-07-15 — fedramp-incident-report-schema-2026-06-24.json → 0.1.1 (patch)
+
+Normalize JSON Schema keyword order within each node (no semantic change). (was 0.1.0).
+
+## 2026-07-15 — fedramp-common-definitions-schema-2026-06-24.json → 0.1.1 (patch)
+
+Normalize JSON Schema keyword order within each node (no semantic change). (was 0.1.0).
+
+## 2026-07-15 — fedramp-certification-package-overview-schema-2026-06-24.json → 0.1.2 (patch)
+
+Normalize JSON Schema keyword order within each node (no semantic change). (was 0.1.1).
+
+## 2026-07-15 — fedramp-assessor-information-schema-2026-06-24.json → 0.1.1 (patch)
+
+Normalize JSON Schema keyword order within each node (no semantic change). (was 0.1.0).
+
+## 2026-07-15 — fedramp-advisor-information-schema-2026-06-24.json → 0.1.1 (patch)
+
+Normalize JSON Schema keyword order within each node (no semantic change). (was 0.1.0).
+
 ## 2026-07-14 — fedramp-certification-package-overview-schema-2026-06-24.json → 0.1.1 (patch)
 
 Assessor is no longer a required element to accommodate class A providers who do not yet have an assessor. If an assessor is provided, then the assessor must have a valid fedRAMP assessor id (was 0.1.0).

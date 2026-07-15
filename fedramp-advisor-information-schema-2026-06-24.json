@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fedramp.gov/schemas/fedramp-advisor-information-schema-2026-06-24.json",
-  "$schemaVersion": "0.1.0",
+  "$schemaVersion": "0.1.1",
   "type": "object",
   "title": "FedRAMP Advisor Information (MKT-CAS-WEB)",
   "description": "Public information an Advisory Service must supply in machine-readable format on their website per MKT-CAS-WEB.",

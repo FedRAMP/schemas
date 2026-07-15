@@ -72,3 +72,12 @@ bun run version-bump <schema-file> <patch|minor|major> "<description>"
 This updates the schema's `$schemaVersion` and appends an entry to `CHANGELOG.md`. The test suite
 (`bun run test`) checks that every schema's `$id` matches its filename and that `$schemaVersion`
 is valid SemVer.
+
+Every schema node's keys (e.g. `type`, `title`, `enum`, `description`) follow a canonical order
+defined in `tools/schema-key-order.ts`; property and `$defs` names themselves are unaffected. The
+test suite enforces this. To fix violations after hand-editing a schema:
+
+```bash
+cd tools
+bun run normalize-order
+```

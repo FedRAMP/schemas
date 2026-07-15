@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json",
-  "$schemaVersion": "0.1.0",
+  "$schemaVersion": "0.1.1",
   "title": "FedRAMP Common Definitions",
   "description": "Shared type definitions referenced by other FedRAMP schemas.",
   "$defs": {
@@ -161,14 +161,14 @@
             "properties": {
               "isOverdue": {
                 "title": "Is Overdue",
-              "description": "True if the vulnerability is overdue.",
+                "description": "True if the vulnerability is overdue.",
                 "const": true
               }
             }
           },
           "then": {
             "title": "Explanation",
-              "description": "Reason for the overdue status.",
+            "description": "Reason for the overdue status.",
             "required": [
               "explanation"
             ]

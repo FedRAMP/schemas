@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fedramp.gov/schemas/fedramp-security-decision-record-schema-2026-06-24.json",
-  "$schemaVersion": "0.1.0",
+  "$schemaVersion": "0.1.1",
   "type": "object",
   "title": "FedRAMP Security Decision Record (SDR-CSO-FRR)",
   "description": "JSON Schema for Cloud Service Provider (CSP) system submission for FedRAMP certification per SDR-CSO-FRR.",
@@ -61,13 +61,13 @@
           "properties": {
             "controlId": {
               "type": "string",
+              "title": "NIST 800-53 Control ID",
               "description": "NIST 800-53 Control ID",
               "examples": [
                 "AC-1",
                 "AC-2",
                 "AC-3"
-              ],
-              "title": "NIST 800-53 Control ID"
+              ]
             },
             "parameterValues": {
               "type": "array",
@@ -75,12 +75,12 @@
               "description": "Parameter values for the control",
               "items": {
                 "type": "object",
+                "title": "Parameter Value",
+                "description": "Parameter value for the control",
                 "required": [
                   "parameterId",
                   "parameterValue"
                 ],
-                "title": "Parameter Value",
-                "description": "Parameter value for the control",
                 "properties": {
                   "parameterId": {
                     "type": "string",
@@ -134,9 +134,9 @@
               "description": "FedRAMP requirement ID"
             },
             "frrImplementationStatus": {
+              "type": "string",
               "title": "Requirement Implementation Status",
               "description": "Status of the requirement implementation.",
-              "type": "string",
               "enum": [
                 "Implemented",
                 "Not Implemented",
@@ -172,9 +172,9 @@
       }
     },
     "keySecurityIndicators": {
+      "type": "array",
       "title": "FedRAMP Key Security Indicators",
       "description": "Describe how the system meets the FedRAMP Key Security Indicators (KSI).",
-      "type": "array",
       "items": {
         "keySecurityIndicator": {
           "type": "object",
@@ -195,9 +195,9 @@
               "description": "FedRAMP KSI ID"
             },
             "ksiImplementationStatus": {
+              "type": "string",
               "title": "KSI Implementation Status",
               "description": "Status of the KSI implementation.",
-              "type": "string",
               "enum": [
                 "Implemented",
                 "Not Implemented",
@@ -252,11 +252,13 @@
   "$defs": {
     "evidence": {
       "type": "object",
-      "description": "Results of the security test",
       "title": "Evidence",
+      "description": "Results of the security test",
       "properties": {
         "evidenceType": {
           "type": "string",
+          "title": "Evidence Type",
+          "description": "Type of evidence provided",
           "enum": [
             "Log",
             "Report",
@@ -265,9 +267,7 @@
             "Policy",
             "Procedure",
             "Audit Record"
-          ],
-          "title": "Evidence Type",
-          "description": "Type of evidence provided"
+          ]
         },
         "evidenceDescription": {
           "type": "string",
