@@ -28,10 +28,7 @@
       "type": "string",
       "title": "Type",
       "description": "Significant change type per SCN-CSO-EVA. Routine recurring changes (SCN-RTR) do not require a Significant Change Notification.",
-      "enum": [
-        "Adaptive",
-        "Transformative"
-      ]
+      "enum": ["Adaptive", "Transformative"]
     },
     "changeTypeExplanation": {
       "type": "string",
@@ -57,9 +54,7 @@
       "type": "object",
       "title": "Plan and Timeline",
       "description": "Plan and timeline for the change, including verification, assessment, and/or validation of impacted Key Security Indicators (KSIs) or Rev5 Controls.",
-      "required": [
-        "summary"
-      ],
+      "required": ["summary"],
       "properties": {
         "summary": {
           "type": "string",
@@ -84,9 +79,7 @@
           "description": "Milestones for the change, including dates and descriptions.",
           "items": {
             "type": "object",
-            "required": [
-              "milestoneDescription"
-            ],
+            "required": ["milestoneDescription"],
             "properties": {
               "milestoneDescription": {
                 "type": "string",
