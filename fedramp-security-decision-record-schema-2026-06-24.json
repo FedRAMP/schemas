@@ -246,7 +246,7 @@
         },
         "evidenceLocation": {
           "type": "string",
-          "format": "uri",
+          "format": "uri-reference",
           "title": "Evidence Location",
           "description": "URI or file path to the evidence document"
         },
