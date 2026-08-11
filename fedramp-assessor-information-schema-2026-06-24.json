@@ -1,16 +1,41 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fedramp.gov/schemas/fedramp-assessor-information-schema-2026-06-24.json",
-  "$schemaVersion": "0.1.1",
+  "$schemaVersion": "1.0.0",
   "type": "object",
   "title": "FedRAMP Assessor Information (MKT-IAS-WEB)",
   "description": "Public information an Independent Assessment Service must supply in machine-readable format on their website per MKT-IAS-WEB.",
   "required": [
+    "assessorName",
+    "logo",
+    "a2laId",
+    "a2laAccreditationDate",
     "serviceDescription",
     "contactInformation",
     "servicesOffered"
   ],
   "properties": {
+    "assessorName": {
+      "type": "string",
+      "title": "Assessor Name",
+      "description": "Name of the independent assessment organization as it should be displayed on the FedRAMP Marketplace (MKT-IAS-WEB)."
+    },
+    "logo": {
+      "$ref": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json/$defs/logoUri",
+      "title": "Logo",
+      "description": "URL of the assessor logo displayed on the FedRAMP Marketplace (MKT-IAS-WEB)."
+    },
+    "a2laId": {
+      "type": "string",
+      "title": "A2LA ID",
+      "description": "Identifier assigned to the assessor by the American Association for Laboratory Accreditation. Required for FedRAMP Recognition per REC-IAS-ACC."
+    },
+    "a2laAccreditationDate": {
+      "type": "string",
+      "format": "date",
+      "title": "A2LA Accreditation Date",
+      "description": "Date the American Association for Laboratory Accreditation accredited this assessor, in YYYY-MM-DD format (REC-IAS-ACC)."
+    },
     "serviceDescription": {
       "type": "string",
       "title": "Service Description",

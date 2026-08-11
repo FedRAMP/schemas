@@ -1,16 +1,33 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fedramp.gov/schemas/fedramp-advisor-information-schema-2026-06-24.json",
-  "$schemaVersion": "0.1.1",
+  "$schemaVersion": "1.0.0",
   "type": "object",
   "title": "FedRAMP Advisor Information (MKT-CAS-WEB)",
   "description": "Public information an Advisory Service must supply in machine-readable format on their website per MKT-CAS-WEB.",
   "required": [
+    "advisorName",
+    "logo",
     "serviceDescription",
     "contactInformation",
     "servicesOffered"
   ],
   "properties": {
+    "advisorName": {
+      "type": "string",
+      "title": "Advisor Name",
+      "description": "Name of the advisory organization as it should be displayed on the FedRAMP Marketplace (MKT-CAS-WEB)."
+    },
+    "logo": {
+      "$ref": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json/$defs/logoUri",
+      "title": "Logo",
+      "description": "URL of the advisor logo displayed on the FedRAMP Marketplace (MKT-CAS-WEB)."
+    },
+    "a2laId": {
+      "type": "string",
+      "title": "A2LA ID",
+      "description": "Identifier assigned to the organization by the American Association for Laboratory Accreditation. Optional for advisors; CR26 does not require advisory services to be A2LA accredited."
+    },
     "serviceDescription": {
       "type": "string",
       "title": "Service Description",
