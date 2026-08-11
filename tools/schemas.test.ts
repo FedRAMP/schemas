@@ -1,6 +1,6 @@
 import { test, expect, describe } from "bun:test";
 import Ajv from "ajv/dist/2020";
-import { readdirSync } from "node:fs";
+import { readdirSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { canonicalizeNode } from "./schema-key-order";
 
@@ -177,6 +177,33 @@ describe("JSON Schema validation", () => {
         );
       }
       expect(valid).toBe(true);
+    });
+  }
+});
+
+// `validateSchema` above only checks that a document is well-formed on its
+// own — it never resolves references, so a $ref naming a target that doesn't
+// exist passes it. Compiling is what forces resolution. Every schema is
+// registered up front so cross-file refs (all of which point into the common
+// definitions schema, by $id) have something to resolve against.
+//
+// This guards the class of bug in issue #11, where 18 cross-schema refs used
+// a path (".json/$defs/nRating") instead of a URI fragment
+// (".json#/$defs/nRating"). A path names a different resource rather than a
+// location inside that file, so every one of them was unresolvable and no
+// validator could compile the schemas at all.
+describe("$refs resolve", () => {
+  const refAjv = new Ajv({ strict: false });
+  for (const file of schemaFiles) {
+    refAjv.addSchema(JSON.parse(readFileSync(resolve(schemasDir, file), "utf8")));
+  }
+
+  for (const file of schemaFiles) {
+    test(file, () => {
+      const { $id } = JSON.parse(readFileSync(resolve(schemasDir, file), "utf8"));
+      // getSchema() compiles on first call, throwing MissingRefError (which
+      // names the offending ref) if anything fails to resolve.
+      expect(refAjv.getSchema($id)).toBeDefined();
     });
   }
 });

@@ -8,6 +8,42 @@ version each moved to, and why. New entries are appended automatically by
 `tools/version-bump.ts` (see [README.md](README.md#versioning) for the policy) — don't hand-edit
 past entries.
 
+## 2026-08-11 — fedramp-vulnerability-detail-report-schema-2026-06-24.json → 0.1.1 (patch)
+
+Fix 3 unresolvable cross-schema `$ref`s into the common definitions schema (`certificationPackageOverviewUri`, `reportPeriodDateTime`, `vulnerabilityDetail`) by changing the path form `...json/$defs/<name>` to the URI fragment form `...json#/$defs/<name>`. Under JSON Schema 2020-12 a `$ref` is a URI reference, so appending `/$defs/<name>` to the file URL names a different resource rather than a location inside that file. Resolution therefore failed, so a standard validator could not compile the schema and no constraint was ever evaluated. No change to what the schema means. Reported in [#11](https://github.com/FedRAMP/schemas/issues/11) (was 0.1.0).
+
+## 2026-08-11 — fedramp-significant-change-notifications-schema-2026-06-24.json → 0.1.2 (patch)
+
+Fix 1 unresolvable cross-schema `$ref` into the common definitions schema (`certificationPackageOverviewUri`) by changing the path form `...json/$defs/<name>` to the URI fragment form `...json#/$defs/<name>`. Under JSON Schema 2020-12 a `$ref` is a URI reference, so appending `/$defs/<name>` to the file URL names a different resource rather than a location inside that file. Resolution therefore failed, so a standard validator could not compile the schema and no constraint was ever evaluated. No change to what the schema means. Reported in [#11](https://github.com/FedRAMP/schemas/issues/11) (was 0.1.1).
+
+## 2026-08-11 — fedramp-security-decision-record-schema-2026-06-24.json → 1.0.1 (patch)
+
+Fix 1 unresolvable cross-schema `$ref` into the common definitions schema (`certificationPackageOverviewUri`) by changing the path form `...json/$defs/<name>` to the URI fragment form `...json#/$defs/<name>`. Under JSON Schema 2020-12 a `$ref` is a URI reference, so appending `/$defs/<name>` to the file URL names a different resource rather than a location inside that file. Resolution therefore failed, so a standard validator could not compile the schema and no constraint was ever evaluated. No change to what the schema means. Reported in [#11](https://github.com/FedRAMP/schemas/issues/11) (was 1.0.0).
+
+## 2026-08-11 — fedramp-ongoing-certification-report-schema-2026-06-24.json → 0.1.2 (patch)
+
+Fix 2 unresolvable cross-schema `$ref`s into the common definitions schema (`certificationPackageOverviewUri`, `reportPeriodDate`) by changing the path form `...json/$defs/<name>` to the URI fragment form `...json#/$defs/<name>`. Under JSON Schema 2020-12 a `$ref` is a URI reference, so appending `/$defs/<name>` to the file URL names a different resource rather than a location inside that file. Resolution therefore failed, so a standard validator could not compile the schema and no constraint was ever evaluated. No change to what the schema means. Reported in [#11](https://github.com/FedRAMP/schemas/issues/11) (was 0.1.1).
+
+## 2026-08-11 — fedramp-incident-report-schema-2026-06-24.json → 0.1.2 (patch)
+
+Fix 3 unresolvable cross-schema `$ref`s into the common definitions schema (`certificationPackageOverviewUri`, `nRating` twice) by changing the path form `...json/$defs/<name>` to the URI fragment form `...json#/$defs/<name>`. Under JSON Schema 2020-12 a `$ref` is a URI reference, so appending `/$defs/<name>` to the file URL names a different resource rather than a location inside that file. Resolution therefore failed, so a standard validator could not compile the schema and no constraint was ever evaluated. No change to what the schema means. Reported in [#11](https://github.com/FedRAMP/schemas/issues/11) (was 0.1.1).
+
+## 2026-08-11 — fedramp-historical-ver-activity-schema-2026-06-24.json → 0.1.1 (patch)
+
+Fix 3 unresolvable cross-schema `$ref`s into the common definitions schema (`certificationPackageOverviewUri`, `vulnerabilityDetail`, `acceptedVulnerabilityInfo`) by changing the path form `...json/$defs/<name>` to the URI fragment form `...json#/$defs/<name>`. Under JSON Schema 2020-12 a `$ref` is a URI reference, so appending `/$defs/<name>` to the file URL names a different resource rather than a location inside that file. Resolution therefore failed, so a standard validator could not compile the schema and no constraint was ever evaluated. No change to what the schema means. Reported in [#11](https://github.com/FedRAMP/schemas/issues/11) (was 0.1.0).
+
+## 2026-08-11 — fedramp-assessor-information-schema-2026-06-24.json → 1.0.1 (patch)
+
+Fix 1 unresolvable cross-schema `$ref` into the common definitions schema (`logoUri`) by changing the path form `...json/$defs/<name>` to the URI fragment form `...json#/$defs/<name>`. Under JSON Schema 2020-12 a `$ref` is a URI reference, so appending `/$defs/<name>` to the file URL names a different resource rather than a location inside that file. Resolution therefore failed, so a standard validator could not compile the schema and no constraint was ever evaluated. No change to what the schema means. Reported in [#11](https://github.com/FedRAMP/schemas/issues/11) (was 1.0.0).
+
+## 2026-08-11 — fedramp-advisor-information-schema-2026-06-24.json → 1.0.1 (patch)
+
+Fix 1 unresolvable cross-schema `$ref` into the common definitions schema (`logoUri`) by changing the path form `...json/$defs/<name>` to the URI fragment form `...json#/$defs/<name>`. Under JSON Schema 2020-12 a `$ref` is a URI reference, so appending `/$defs/<name>` to the file URL names a different resource rather than a location inside that file. Resolution therefore failed, so a standard validator could not compile the schema and no constraint was ever evaluated. No change to what the schema means. Reported in [#11](https://github.com/FedRAMP/schemas/issues/11) (was 1.0.0).
+
+## 2026-08-11 — fedramp-accepted-vulnerability-info-schema-2026-06-24.json → 0.1.1 (patch)
+
+Fix 3 unresolvable cross-schema `$ref`s into the common definitions schema (`certificationPackageOverviewUri`, `reportPeriodDateTime`, `acceptedVulnerabilityInfo`) by changing the path form `...json/$defs/<name>` to the URI fragment form `...json#/$defs/<name>`. Under JSON Schema 2020-12 a `$ref` is a URI reference, so appending `/$defs/<name>` to the file URL names a different resource rather than a location inside that file. Resolution therefore failed, so a standard validator could not compile the schema and no constraint was ever evaluated. No change to what the schema means. Reported in [#11](https://github.com/FedRAMP/schemas/issues/11) (was 0.1.0).
+
 ## 2026-08-11 — fedramp-assessor-information-schema-2026-06-24.json → 1.0.0 (major)
 
 Add four required fields so the FedRAMP Marketplace can render an Independent Assessment Service
