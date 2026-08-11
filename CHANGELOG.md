@@ -8,6 +8,41 @@ version each moved to, and why. New entries are appended automatically by
 `tools/version-bump.ts` (see [README.md](README.md#versioning) for the policy) — don't hand-edit
 past entries.
 
+## 2026-08-11 — fedramp-assessor-information-schema-2026-06-24.json → 1.0.0 (major)
+
+Add four required fields so the FedRAMP Marketplace can render an Independent Assessment Service
+listing entirely from the published document (previously a valid document carried no organization
+name at all):
+
+- `assessorName` — organization name as displayed on the Marketplace.
+- `logo` — `$ref` to the new `$defs/logoUri` in the common definitions schema.
+- `a2laId` — identifier assigned by the American Association for Laboratory Accreditation, which
+  assessors must hold to qualify for FedRAMP Recognition (REC-IAS-ACC).
+- `a2laAccreditationDate` — `format: date`, the day A2LA accredited the assessor (REC-IAS-ACC).
+
+**Breaking:** any assessor document already published against 0.1.1 is invalid until these four
+fields are added. Requested in [#13](https://github.com/FedRAMP/schemas/issues/13). (was 0.1.1).
+
+## 2026-08-11 — fedramp-advisor-information-schema-2026-06-24.json → 1.0.0 (major)
+
+Add the advisor counterpart of the assessor Marketplace fields:
+
+- `advisorName` (required) — organization name as displayed on the Marketplace.
+- `logo` (required) — `$ref` to the new `$defs/logoUri` in the common definitions schema.
+- `a2laId` (optional) — A2LA identifier. Optional rather than required because CR26 does not
+  require advisory services to be A2LA accredited.
+
+**Breaking:** any advisor document already published against 0.1.1 is invalid until `advisorName`
+and `logo` are added. Requested in [#13](https://github.com/FedRAMP/schemas/issues/13).
+(was 0.1.1).
+
+## 2026-08-11 — fedramp-common-definitions-schema-2026-06-24.json → 0.2.0 (minor)
+
+Add `$defs/logoUri` — a `format: uri` string constrained to PNG, JPEG, GIF, SVG, WebP, ICO, BMP,
+or TIFF by file extension — so the advisor and assessor schemas share one logo definition instead
+of each duplicating the inline `logo` node in the certification package overview schema. That
+schema's inline copy is unchanged; folding it into this `$ref` is a separate cleanup. (was 0.1.1).
+
 ## 2026-07-15 — fedramp-security-decision-record-schema-2026-06-24.json → 1.0.0 (major)
 
 Fix items schemas for portsAndProtocols, securityControls, fedRampRequirements, and keySecurityIndicators: properties was a dead sibling of items (ignored on array instances) or the real object schema was nested under a non-keyword wrapper key (nistSecurityControl/fedRAMPRequirement/keySecurityIndicator) that ajv silently ignored, so array elements were effectively unvalidated. Now items directly declares type/required/properties for each element. (was 0.1.1).

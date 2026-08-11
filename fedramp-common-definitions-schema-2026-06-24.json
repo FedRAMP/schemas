@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json",
-  "$schemaVersion": "0.1.1",
+  "$schemaVersion": "0.2.0",
   "title": "FedRAMP Common Definitions",
   "description": "Shared type definitions referenced by other FedRAMP schemas.",
   "$defs": {
@@ -10,6 +10,13 @@
       "format": "uri",
       "title": "Certification Package Overview",
       "description": "Full URI of the provider's Certification Package Overview document."
+    },
+    "logoUri": {
+      "type": "string",
+      "format": "uri",
+      "title": "Logo",
+      "description": "URL of an organization logo. Must point to a PNG, JPEG, GIF, SVG, WebP, ICO, BMP, or TIFF file.",
+      "pattern": "\\.(png|jpe?g|gif|svg|webp|ico|bmp|tiff?)([?#].*)?$"
     },
     "nRating": {
       "type": "integer",
