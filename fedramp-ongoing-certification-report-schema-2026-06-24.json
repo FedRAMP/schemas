@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fedramp.gov/schemas/fedramp-ongoing-certification-report-schema-2026-06-24.json",
-  "$schemaVersion": "0.1.2",
+  "$schemaVersion": "0.2.0",
   "type": "object",
   "title": "FedRAMP Ongoing Certification Report (CCM-OCR-AVL)",
   "description": "Quarterly Ongoing Certification Report (OCR) per CCM-OCR-AVL, covering the entire period since the previous report.",
@@ -91,12 +91,15 @@
     "reportableIncidents": {
       "type": "object",
       "title": "FedRAMP Reportable Incidents",
-      "description": "FedRAMP Reportable Incidents during this period, or an attestation that none occurred.",
+      "description": "FedRAMP Reportable Incidents during this period. An empty `incidents` array attests that none occurred.",
+      "required": [
+        "incidents"
+      ],
       "properties": {
         "incidents": {
           "type": "array",
           "title": "Incidents",
-          "description": "Summary of each incident.",
+          "description": "Summary of each incident. Provide an empty array to attest that no FedRAMP Reportable Incidents occurred during this period.",
           "items": {
             "$ref": "#/$defs/incidentSummary"
           }
