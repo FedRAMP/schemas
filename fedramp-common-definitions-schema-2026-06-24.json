@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json",
-  "$schemaVersion": "0.2.0",
+  "$schemaVersion": "0.2.1",
   "title": "FedRAMP Common Definitions",
   "description": "Shared type definitions referenced by other FedRAMP schemas.",
   "$defs": {
@@ -165,6 +165,9 @@
             }
           },
           "if": {
+            "required": [
+              "isOverdue"
+            ],
             "properties": {
               "isOverdue": {
                 "title": "Is Overdue",
@@ -174,8 +177,6 @@
             }
           },
           "then": {
-            "title": "Explanation",
-            "description": "Reason for the overdue status.",
             "required": [
               "explanation"
             ]

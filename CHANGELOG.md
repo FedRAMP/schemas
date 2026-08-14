@@ -8,6 +8,30 @@ version each moved to, and why. New entries are appended automatically by
 `tools/version-bump.ts` (see [README.md](README.md#versioning) for the policy) — don't hand-edit
 past entries.
 
+## 2026-08-14 — fedramp-security-decision-record-schema-2026-06-24.json → 1.0.3 (patch)
+
+Clarify the portsAndProtocols purpose description (was 1.0.2).
+
+## 2026-08-14 — fedramp-common-definitions-schema-2026-06-24.json → 0.2.1 (patch)
+
+Pin isOverdue in the overdueStatus if check so the conditional does not depend on the sibling required, and drop the field-level title/description that were misapplied to the then subschema (was 0.2.0).
+
+## 2026-08-14 — fedramp-certification-package-overview-schema-2026-06-24.json → 0.1.3 (patch)
+
+Fix possessive typos, reuse the shared logoUri definition, pin contactType in contains checks, and annotate certifiedServices items (was 0.1.2).
+
+## 2026-08-14 — fedramp-ongoing-certification-report-schema-2026-06-24.json → 0.2.0 (minor)
+
+Require reportableIncidents.incidents so an empty array serves as the no-incidents attestation (was 0.1.2).
+
+## 2026-08-14 — fedramp-incident-report-schema-2026-06-24.json → 0.2.0 (minor)
+
+Fix potentialImpact declared as string instead of object, require resolvedAt on Final reports, and tighten the CVE ID pattern (was 0.1.2).
+
+## 2026-08-14 — fedramp-security-decision-record-schema-2026-06-24.json → 1.0.2 (patch)
+
+Correct KSI implementation/validation/assessment descriptions to reference the Key Security Indicator, and fix 'Indictor' typo (was 1.0.1).
+
 ## 2026-08-11 — fedramp-vulnerability-detail-report-schema-2026-06-24.json → 0.1.1 (patch)
 
 Fix 3 unresolvable cross-schema `$ref`s into the common definitions schema (`certificationPackageOverviewUri`, `reportPeriodDateTime`, `vulnerabilityDetail`) by changing the path form `...json/$defs/<name>` to the URI fragment form `...json#/$defs/<name>`. Under JSON Schema 2020-12 a `$ref` is a URI reference, so appending `/$defs/<name>` to the file URL names a different resource rather than a location inside that file. Resolution therefore failed, so a standard validator could not compile the schema and no constraint was ever evaluated. No change to what the schema means. Reported in [#11](https://github.com/FedRAMP/schemas/issues/11) (was 0.1.0).
