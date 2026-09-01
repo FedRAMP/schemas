@@ -12,6 +12,10 @@ past entries.
 
 Add Remediated finalDisposition value, wire up painReductionEvents on vulnerabilityDetail, and fix the VER-RPT-PAE rule citation (fixes #3, #7, #16) (was 0.2.1).
 
+## 2026-09-01 — fedramp-security-decision-record-schema-2026-06-24.json → 1.1.0 (minor)
+
+Add optional metadata object (version, lastUpdated, updateSource) per SDR-CSO-MTD (fixes #20) (was 1.0.3).
+
 ## 2026-08-14 — fedramp-security-decision-record-schema-2026-06-24.json → 1.0.3 (patch)
 
 Clarify the portsAndProtocols purpose description (was 1.0.2).
