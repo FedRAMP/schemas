@@ -272,7 +272,7 @@
           "type": "string",
           "format": "uri",
           "title": "Evidence Location",
-          "description": "URI or file path to the evidence document"
+          "description": "URI to the evidence document"
         },
         "evidenceText": {
           "type": "string",
