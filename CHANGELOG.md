@@ -8,6 +8,10 @@ version each moved to, and why. New entries are appended automatically by
 `tools/version-bump.ts` (see [README.md](README.md#versioning) for the policy) — don't hand-edit
 past entries.
 
+## 2026-09-01 — fedramp-common-definitions-schema-2026-06-24.json → 0.3.0 (minor)
+
+Add Remediated finalDisposition value, wire up painReductionEvents on vulnerabilityDetail, and fix the VER-RPT-PAE rule citation (fixes #3, #7, #16) (was 0.2.1).
+
 ## 2026-08-14 — fedramp-security-decision-record-schema-2026-06-24.json → 1.0.3 (patch)
 
 Clarify the portsAndProtocols purpose description (was 1.0.2).
