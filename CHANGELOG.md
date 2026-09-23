@@ -8,6 +8,10 @@ version each moved to, and why. New entries are appended automatically by
 `tools/version-bump.ts` (see [README.md](README.md#versioning) for the policy) — don't hand-edit
 past entries.
 
+## 2026-09-23 — fedramp-significant-change-notifications-schema-2026-06-24.json → 0.1.3 (patch)
+
+Record the prettier array-collapsing reformat from 29a909c, which changed this file without the `$schemaVersion` bump its commit message described; no content changes (was 0.1.2).
+
 ## 2026-09-02 — fedramp-certification-package-overview-schema-2026-06-24.json → 0.1.4 (patch)
 
 Changed /properties/certifiedServices/items/properties/dateAvailable to an optional field (was 0.1.3).
