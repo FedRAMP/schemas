@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json",
-  "$schemaVersion": "0.3.0",
+  "$schemaVersion": "0.4.0",
   "title": "FedRAMP Common Definitions",
   "description": "Shared type definitions referenced by other FedRAMP schemas.",
   "$defs": {
@@ -18,26 +18,58 @@
       "description": "URL of an organization logo. Must point to a PNG, JPEG, GIF, SVG, WebP, ICO, BMP, or TIFF file.",
       "pattern": "\\.(png|jpe?g|gif|svg|webp|ico|bmp|tiff?)([?#].*)?$"
     },
+    "contactInformation": {
+      "type": "object",
+      "title": "Contact Information",
+      "description": "Point of contact and website for an organization.",
+      "required": [
+        "pointOfContactName",
+        "jobTitle",
+        "email",
+        "phone",
+        "companyWebsite"
+      ],
+      "properties": {
+        "pointOfContactName": {
+          "type": "string",
+          "title": "Point of Contact Name",
+          "description": "Full name of the point of contact for the organization."
+        },
+        "jobTitle": {
+          "type": "string",
+          "title": "Job Title",
+          "description": "Job title of the point of contact."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "title": "Email",
+          "description": "Email address for the point of contact."
+        },
+        "phone": {
+          "type": "string",
+          "title": "Phone",
+          "description": "Phone number for the point of contact."
+        },
+        "companyWebsite": {
+          "type": "string",
+          "format": "uri",
+          "title": "Company Website",
+          "description": "Official website URL for the organization."
+        }
+      }
+    },
     "nRating": {
       "type": "integer",
       "title": "Potential Agency Impact N-Rating",
       "description": "See VER-EVA-EPA or IEC-CSO-EFI for N1–N5 definitions.",
-      "enum": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ]
+      "enum": [1, 2, 3, 4, 5]
     },
     "detection": {
       "type": "object",
       "title": "Detection",
       "description": "Required information for a single detected vulnerability per VER-RPT-VDT.",
-      "required": [
-        "detectedAt",
-        "detectionSource"
-      ],
+      "required": ["detectedAt", "detectionSource"],
       "properties": {
         "detectedAt": {
           "type": "string",
@@ -56,10 +88,7 @@
       "type": "object",
       "title": "PAIN Reduction Event",
       "description": "Required information for a single PAIN reduction event per VER-RPT-VDT.",
-      "required": [
-        "reducedAt",
-        "rating"
-      ],
+      "required": ["reducedAt", "rating"],
       "properties": {
         "reducedAt": {
           "type": "string",
@@ -127,10 +156,7 @@
           "type": "object",
           "title": "Projected Next Reduction",
           "description": "Next planned mitigation step. Omit if fully mitigated or none planned.",
-          "required": [
-            "estimatedAt",
-            "targetRating"
-          ],
+          "required": ["estimatedAt", "targetRating"],
           "properties": {
             "estimatedAt": {
               "type": "string",
@@ -149,9 +175,7 @@
           "type": "object",
           "title": "Overdue Status",
           "description": "See VER-TFR-EVU and VER-TFR-MAV for overdue definitions.",
-          "required": [
-            "isOverdue"
-          ],
+          "required": ["isOverdue"],
           "properties": {
             "isOverdue": {
               "type": "boolean",
@@ -165,9 +189,7 @@
             }
           },
           "if": {
-            "required": [
-              "isOverdue"
-            ],
+            "required": ["isOverdue"],
             "properties": {
               "isOverdue": {
                 "title": "Is Overdue",
@@ -177,9 +199,7 @@
             }
           },
           "then": {
-            "required": [
-              "explanation"
-            ]
+            "required": ["explanation"]
           }
         },
         "supplementaryRiskInformation": {
@@ -212,10 +232,7 @@
       "type": "object",
       "title": "Accepted Vulnerability Info",
       "description": "Required information for a single accepted vulnerability per VER-RPT-AVI.",
-      "required": [
-        "vulnerabilityDetail",
-        "acceptanceRationale"
-      ],
+      "required": ["vulnerabilityDetail", "acceptanceRationale"],
       "properties": {
         "vulnerabilityDetail": {
           "$ref": "#/$defs/vulnerabilityDetail"
@@ -231,10 +248,7 @@
       "type": "object",
       "title": "Report Period",
       "description": "From and To dates for the report period.",
-      "required": [
-        "from",
-        "to"
-      ],
+      "required": ["from", "to"],
       "properties": {
         "from": {
           "type": "string",
@@ -254,10 +268,7 @@
       "type": "object",
       "title": "Report Period",
       "description": "From and To dates for the report period.",
-      "required": [
-        "from",
-        "to"
-      ],
+      "required": ["from", "to"],
       "properties": {
         "from": {
           "type": "string",

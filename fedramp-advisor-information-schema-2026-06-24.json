@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fedramp.gov/schemas/fedramp-advisor-information-schema-2026-06-24.json",
-  "$schemaVersion": "1.0.1",
+  "$schemaVersion": "2.0.0",
   "type": "object",
   "title": "FedRAMP Advisor Information (MKT-CAS-WEB)",
   "description": "Public information an Advisory Service must supply in machine-readable format on their website per MKT-CAS-WEB.",
@@ -34,13 +34,9 @@
       "description": "General description of the consulting or advisory service (MKT-CAS-WEB)."
     },
     "contactInformation": {
-      "type": "array",
+      "$ref": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json#/$defs/contactInformation",
       "title": "Contact Information",
-      "description": "Contact information for the advisory organization (MKT-CAS-WEB).",
-      "items": {
-        "type": "string"
-      },
-      "minItems": 1
+      "description": "Contact information for the advisory organization (MKT-CAS-WEB)."
     },
     "servicesOffered": {
       "type": "array",
@@ -50,14 +46,6 @@
         "$ref": "#/$defs/serviceOffering"
       },
       "minItems": 1
-    },
-    "customerReferences": {
-      "type": "array",
-      "title": "Customer References",
-      "description": "Positive attestations from customers or customer references. Optional per MKT-CAS-WEB.",
-      "items": {
-        "type": "string"
-      }
     }
   },
   "$defs": {
@@ -65,9 +53,7 @@
       "type": "object",
       "title": "Service Offering",
       "description": "Consulting or advisory service offered",
-      "required": [
-        "serviceName"
-      ],
+      "required": ["serviceName"],
       "properties": {
         "serviceName": {
           "type": "string",
