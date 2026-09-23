@@ -8,6 +8,10 @@ version each moved to, and why. New entries are appended automatically by
 `tools/version-bump.ts` (see [README.md](README.md#versioning) for the policy) — don't hand-edit
 past entries.
 
+## 2026-09-23 — fedramp-certification-package-overview-schema-2026-06-24.json → 0.1.5 (patch)
+
+Add optional 'advisors' array to FRC-CSO-PKG schema. (was 0.1.4).
+
 ## 2026-09-02 — fedramp-certification-package-overview-schema-2026-06-24.json → 0.1.4 (patch)
 
 Changed /properties/certifiedServices/items/properties/dateAvailable to an optional field (was 0.1.3).
