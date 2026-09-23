@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fedramp.gov/schemas/fedramp-certification-package-overview-schema-2026-06-24.json",
-  "$schemaVersion": "0.1.4",
+  "$schemaVersion": "0.1.6",
   "type": "object",
   "title": "FedRAMP Certification Package Overview (FRC-CSO-PKG)",
   "description": "Identification, service properties, contacts, and supporting documentation for a Cloud Service Offering per FRC-CSO-PKG.",
@@ -60,10 +60,7 @@
           "type": "string",
           "title": "Certification Type",
           "description": "The FedRAMP certification type for the Cloud Service Offering.",
-          "enum": [
-            "20x",
-            "Rev5"
-          ]
+          "enum": ["20x", "Rev5"]
         },
         "website": {
           "type": "string",
@@ -82,10 +79,7 @@
       "type": "object",
       "title": "Service Properties",
       "description": "Technical and operational properties of the Cloud Service Offering.",
-      "required": [
-        "serviceType",
-        "deploymentModel"
-      ],
+      "required": ["serviceType", "deploymentModel"],
       "properties": {
         "serviceType": {
           "type": "array",
@@ -93,11 +87,7 @@
           "description": "Cloud service model(s). Select all that apply (CDS-CSO-PUB).",
           "items": {
             "type": "string",
-            "enum": [
-              "SaaS",
-              "PaaS",
-              "IaaS"
-            ]
+            "enum": ["SaaS", "PaaS", "IaaS"]
           },
           "minItems": 1
         },
@@ -197,9 +187,7 @@
       "allOf": [
         {
           "contains": {
-            "required": [
-              "contactType"
-            ],
+            "required": ["contactType"],
             "properties": {
               "contactType": {
                 "title": "Contact Type",
@@ -211,9 +199,7 @@
         },
         {
           "contains": {
-            "required": [
-              "contactType"
-            ],
+            "required": ["contactType"],
             "properties": {
               "contactType": {
                 "title": "Contact Type",
@@ -229,10 +215,7 @@
       "type": "object",
       "title": "Independent Assessor",
       "description": "The Independent Assessment Service that performs verification and validation for the Cloud Service Offering (CDS-CSO-PUB).",
-      "required": [
-        "name",
-        "assessorID"
-      ],
+      "required": ["name", "assessorID"],
       "properties": {
         "name": {
           "type": "string",
@@ -247,6 +230,25 @@
         }
       }
     },
+    "advisors": {
+      "type": "array",
+      "title": "Advisors",
+      "description": "Optional list of advisors associated with the Cloud Service Offering or organization. Multiple advisors may be provided if needed.",
+      "items": {
+        "type": "object",
+        "title": "Advisor",
+        "description": "An advisor who provides guidance, support, or subject matter expertise.",
+        "required": ["name"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Advisor Name",
+            "description": "Name of the advisor."
+          }
+        }
+      }
+    },
+
     "certifiedServices": {
       "type": "array",
       "title": "Certified Services",
@@ -255,10 +257,7 @@
         "type": "object",
         "title": "Certified Service",
         "description": "A service offered by the provider that is included in this certification.",
-        "required": [
-          "serviceName",
-          "serviceDescription"
-        ],
+        "required": ["serviceName", "serviceDescription"],
         "properties": {
           "serviceName": {
             "type": "string",
@@ -314,11 +313,7 @@
           "description": "Non-FedRAMP Certified third-party information resources.",
           "items": {
             "type": "object",
-            "required": [
-              "name",
-              "provider",
-              "useCase"
-            ],
+            "required": ["name", "provider", "useCase"],
             "properties": {
               "name": {
                 "type": "string",
@@ -368,13 +363,8 @@
           },
           "minItems": 1,
           "examples": [
-            [
-              "Secure Configuration Guidance"
-            ],
-            [
-              "Trust Center",
-              "Assessment Reports"
-            ]
+            ["Secure Configuration Guidance"],
+            ["Trust Center", "Assessment Reports"]
           ]
         },
         "url": {
@@ -400,9 +390,7 @@
         }
       },
       "if": {
-        "required": [
-          "authenticationRequired"
-        ],
+        "required": ["authenticationRequired"],
         "properties": {
           "authenticationRequired": {
             "title": "Authentication Required",
@@ -412,28 +400,20 @@
         }
       },
       "then": {
-        "required": [
-          "accessRequestInstructions"
-        ]
+        "required": ["accessRequestInstructions"]
       }
     },
     "contactInfo": {
       "type": "object",
       "title": "Contact",
       "description": "A contact for the Cloud Service Provider.",
-      "required": [
-        "contactType"
-      ],
+      "required": ["contactType"],
       "properties": {
         "contactType": {
           "type": "string",
           "title": "Contact Type",
           "description": "The role or category of this contact.",
-          "examples": [
-            "Primary",
-            "Security",
-            "Sales"
-          ]
+          "examples": ["Primary", "Security", "Sales"]
         },
         "contactName": {
           "type": "string",
