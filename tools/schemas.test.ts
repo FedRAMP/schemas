@@ -370,3 +370,52 @@ describe("schemas are version-bumped for their latest content changes", () => {
     }
   }
 });
+// Exercises the contactPhone pattern in the certification package overview
+// schema against the formats it is meant to accept and reject.
+describe("contactPhone pattern", () => {
+  const schema = JSON.parse(
+    readFileSync(resolve(schemasDir, "fedramp-certification-package-overview-schema-2026-06-24.json"), "utf8")
+  );
+  const pattern = new RegExp(schema.$defs.contactInfo.properties.contactPhone.pattern, "u");
+
+  const valid = [
+    "202-555-0123",
+    "2025550123",
+    "202.555.0123",
+    "202 555 0123",
+    "(202) 555-0123",
+    "(202)555-0123",
+    "800-555-0199",
+    "1-800-555-0199",
+    "1 (888) 555-0123",
+    "+1 202 555 0123",
+    "+1-877-555-0123",
+    "+12025550123",
+    "202-555-0123 x42",
+    "202-555-0123x42",
+    "202-555-0123 ext. 1234",
+    "202-555-0123 ext 1234",
+    "(800) 555-0199 Ext. 7",
+    "202-555-0123 extension 123456",
+  ];
+  const invalid = [
+    "",
+    "555-0123",
+    "202-555-012",
+    "202-555-01234",
+    "2-202-555-0123",
+    "+44 20 7946 0958",
+    "1-800-FLOWERS",
+    "202-555-0123 ext.",
+    "202-555-0123 ext. 1234567",
+    "202--555-0123",
+    "phone: 202-555-0123",
+  ];
+
+  for (const phone of valid) {
+    test(`accepts ${JSON.stringify(phone)}`, () => expect(pattern.test(phone)).toBe(true));
+  }
+  for (const phone of invalid) {
+    test(`rejects ${JSON.stringify(phone)}`, () => expect(pattern.test(phone)).toBe(false));
+  }
+});
