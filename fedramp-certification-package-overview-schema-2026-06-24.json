@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fedramp.gov/schemas/fedramp-certification-package-overview-schema-2026-06-24.json",
-  "$schemaVersion": "0.2.0",
+  "$schemaVersion": "0.3.0",
   "type": "object",
   "title": "FedRAMP Certification Package Overview (FRC-CSO-PKG)",
   "description": "Identification, service properties, contacts, and supporting documentation for a Cloud Service Offering per FRC-CSO-PKG.",
@@ -59,8 +59,20 @@
         "certificationType": {
           "type": "string",
           "title": "Certification Type",
-          "description": "The FedRAMP certification type for the Cloud Service Offering.",
+          "description": "The FedRAMP Certification Type for the Cloud Service Offering (FRD-CTY). Together with certificationPath and certificationClass, forms the Certification Profile (FRD-CPF, FRC-CSO-FCP).",
           "enum": ["20x", "Rev5"]
+        },
+        "certificationPath": {
+          "type": "string",
+          "title": "Certification Path",
+          "description": "The FedRAMP Certification Path for the Cloud Service Offering (FRD-CPH): certification directly from FedRAMP (Program) or from a federal agency authorization to operate (Agency). The Agency path is a legacy path available only for the Rev5 Certification Type. The certification path is ultimately determined by FedRAMP. Values in this element will not affect marketplace listings.",
+          "enum": ["Program", "Agency"]
+        },
+        "certificationClass": {
+          "type": "string",
+          "title": "Certification Class",
+          "description": "The FedRAMP Certification Class for the Cloud Service Offering (FRD-CCL). This field is provided to help automated tools evaluate Certification Packages. The certification class is ultimately determined by FedRAMP. Values in this element will not affect marketplace listings.",
+          "enum": ["A", "B", "C", "D"]
         },
         "website": {
           "type": "string",
@@ -72,6 +84,25 @@
           "$ref": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json#/$defs/logoUri",
           "title": "Logo",
           "description": "URL of the CSP logo. Must point to a PNG, JPEG, GIF, SVG, WebP, ICO, BMP, or TIFF file (CDS-CSO-PUB)."
+        }
+      },
+      "if": {
+        "required": ["certificationPath"],
+        "properties": {
+          "certificationPath": {
+            "title": "Certification Path",
+            "description": "The FedRAMP Certification Path for the Cloud Service Offering.",
+            "const": "Agency"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "certificationType": {
+            "title": "Certification Type",
+            "description": "The Agency Certification Path is only available for the Rev5 Certification Type (FRD-CPH).",
+            "const": "Rev5"
+          }
         }
       }
     },
