@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://fedramp.gov/schemas/fedramp-common-definitions-schema-2026-06-24.json",
-  "$schemaVersion": "0.4.1",
+  "$schemaVersion": "0.4.2",
   "title": "FedRAMP Common Definitions",
   "description": "Shared type definitions referenced by other FedRAMP schemas.",
   "$defs": {
@@ -62,7 +62,7 @@
     "nRating": {
       "type": "integer",
       "title": "Potential Agency Impact N-Rating",
-      "description": "See VER-EVA-EPA or IEC-CSO-EFI for N1–N5 definitions.",
+      "description": "See VER-EVA-EPA or IEC-CSO-EFI for N0–N5 definitions.",
       "enum": [0, 1, 2, 3, 4, 5]
     },
     "detection": {
