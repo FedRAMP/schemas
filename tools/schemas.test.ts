@@ -419,3 +419,39 @@ describe("contactPhone pattern", () => {
     test(`rejects ${JSON.stringify(phone)}`, () => expect(pattern.test(phone)).toBe(false));
   }
 });
+
+// Exercises the Certification Profile fields (FRD-CPF) on the certification
+// package overview's serviceIdentification, including the rule that the
+// Agency Certification Path is only available for Rev5 (FRD-CPH).
+describe("certification profile", () => {
+  const schema = JSON.parse(
+    readFileSync(resolve(schemasDir, "fedramp-certification-package-overview-schema-2026-06-24.json"), "utf8")
+  );
+  const validate = new Ajv({ strict: false }).compile({
+    ...schema.properties.serviceIdentification,
+    required: [],
+    properties: Object.fromEntries(
+      Object.entries(schema.properties.serviceIdentification.properties).filter(([k]) => k.startsWith("certification"))
+    ),
+  });
+
+  const valid = [
+    { certificationType: "20x" },
+    { certificationType: "20x", certificationPath: "Program", certificationClass: "B" },
+    { certificationType: "Rev5", certificationPath: "Program", certificationClass: "D" },
+    { certificationType: "Rev5", certificationPath: "Agency", certificationClass: "C" },
+  ];
+  const invalid = [
+    { certificationType: "20x", certificationPath: "Agency" },
+    { certificationType: "Rev5", certificationPath: "Sponsor" },
+    { certificationType: "Rev5", certificationClass: "E" },
+    { certificationType: "Rev5", certificationClass: "a" },
+  ];
+
+  for (const profile of valid) {
+    test(`accepts ${JSON.stringify(profile)}`, () => expect(validate(profile)).toBe(true));
+  }
+  for (const profile of invalid) {
+    test(`rejects ${JSON.stringify(profile)}`, () => expect(validate(profile)).toBe(false));
+  }
+});

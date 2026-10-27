@@ -8,6 +8,10 @@ version each moved to, and why. New entries are appended automatically by
 `tools/version-bump.ts` (see [README.md](README.md#versioning) for the policy) — don't hand-edit
 past entries.
 
+## 2026-10-16 — fedramp-certification-package-overview-schema-2026-06-24.json → 0.3.0 (minor)
+
+Add optional certificationPath and certificationClass to serviceIdentification so the full Certification Profile (FRD-CPF) is machine-readable; Agency path is restricted to Rev5 (#26) (was 0.2.0).
+
 ## 2026-10-16 — fedramp-certification-package-overview-schema-2026-06-24.json → 0.2.0 (minor)
 
 Broaden contactPhone pattern to accept toll-free numbers, +1 country code, extensions, and dot/space/parenthesized formats (was 0.1.6).
